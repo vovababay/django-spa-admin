@@ -1,26 +1,22 @@
-from collections import defaultdict
-from django.shortcuts import render
-from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
-from django.contrib import admin
-from django.http import HttpResponse, JsonResponse
-from django_spa_admin.registred_models import converted_dict, app_verbose_names
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.db import models
 from django.db.models.query import QuerySet
-from django_spa_admin.serializers import DynamicModelSerializer
-from django_spa_admin.paginator import AdminLimitOffsetPaginator
+from django.contrib.auth import authenticate, login, logout
 
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from django.contrib.auth import authenticate, login, logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.viewsets import ViewSet
+
+from django_spa_admin.serializers import DynamicModelSerializer
+from django_spa_admin.paginator import AdminLimitOffsetPaginator
+from django_spa_admin.registred_models import converted_dict, app_verbose_names
 
 
 class TestViewSet(ViewSet):
@@ -117,8 +113,6 @@ class ExampleView(APIView):
         return Response(content)
     
 
-
-
 class LoginView(APIView):
     permission_classes = [AllowAny]
     authentication_classes = [SessionAuthentication]
@@ -140,3 +134,4 @@ class LogoutView(APIView):
     def post(self, request):
         logout(request)
         return Response({"message": "Logout successful"}, status=status.HTTP_200_OK)
+
