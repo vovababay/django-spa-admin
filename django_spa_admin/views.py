@@ -13,6 +13,7 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.viewsets import ViewSet
+from rest_framework.exceptions import ValidationError
 
 from django_spa_admin.serializers import DynamicModelSerializer
 from django_spa_admin.paginator import AdminLimitOffsetPaginator
@@ -20,7 +21,7 @@ from django_spa_admin.registred_models import converted_dict, app_verbose_names
 
 
 class TestViewSet(ViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def serialize(self, model_class, data):
         many = False
@@ -33,7 +34,7 @@ class TestViewSet(ViewSet):
         model_name = kwargs.get('model_name')
         model_data = converted_dict.get((app_label, model_name))
         if not model_data:
-            return JsonResponse(data={'error': [f'model {model_name} in app_label {app_label} not found']}, status=status.HTTP_404_NOT_FOUND)
+            raise ValidationError({'error': [f'model {model_name} in app_label {app_label} not found']})
         model_class = model_data.get('model')
         admin_class = model_data.get('admin')
         return model_class, admin_class

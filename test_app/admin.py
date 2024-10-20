@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django_spa_admin.models import ArticleModel, Card
+from test_app.models import ArticleModel, Card
 
 
 class ArticleAdmin(admin.ModelAdmin):
