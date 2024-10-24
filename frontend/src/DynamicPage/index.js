@@ -1,0 +1,1 @@
+export { DynamicPage } from "./DynamicPage";

@@ -1,0 +1,13 @@
+html, body, #root {
+    height: 100%;
+    margin: 0;
+}
+
+.ant-layout {
+    display: flex;
+    flex-direction: column;
+}
+
+.ant-layout-content {
+    flex: 1; /* Заставляем контент занимать оставшееся пространство */
+}
