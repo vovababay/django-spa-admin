@@ -1,21 +1,36 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
 
 from django_spa_admin.views import ExampleView, LoginView, LogoutView, TestViewSet, SideBarView
 
+from django.shortcuts import render
+
+def index(request, **kwargs):
+    return render(request, 'index.html')
+
+def new_page_view(request):
+    return render(request, 'index.html')
 
 router = DefaultRouter()
 router.register(r'side_bar', SideBarView, basename='side_bar')
 
 
 urlpatterns = [
-    path('django_spa_admin/<str:app_label>/<str:model_name>/', TestViewSet.as_view(
+    # path('django_spa/admin/', index, name='index'),
+    # path('django_spa/admin/<str:app_label>/<str:model_name>/', index, name='new_page_view'),
+    re_path(r'^django_spa/admin/.*$', index, name='django_spa_all_pages'),
+    path('django_spa/api/<str:app_label>/<str:model_name>/fields/', TestViewSet.as_view(
+        {
+            'get': 'fields',
+        }
+    ), name='test-list'),
+    path('django_spa/api/<str:app_label>/<str:model_name>/', TestViewSet.as_view(
         {
             'get': 'list',
             'post': 'create'
         }
     ), name='test-list'),
-    path('django_spa_admin/<str:app_label>/<str:model_name>/<int:pk>/', TestViewSet.as_view(
+    path('django_spa/api/<str:app_label>/<str:model_name>/<int:pk>/', TestViewSet.as_view(
         {
             'get': 'retrieve',
             'put': 'update',
@@ -23,8 +38,10 @@ urlpatterns = [
             'delete': 'delete'
         }
     ), name='test-detail'),
-    path('django_spa_admin/ex/', ExampleView.as_view(), name='ex'),
-    path('django_spa_admin/login/', LoginView.as_view(), name='login'),
-    path('django_spa_admin/logout/', LogoutView.as_view(), name='logout'),
-    path('django_spa_admin/', include(router.urls)),
+    path('django_spa/api/ex/', ExampleView.as_view(), name='ex'),
+    path('django_spa/api/login/', LoginView.as_view(), name='login'),
+    path('django_spa/api/logout/', LogoutView.as_view(), name='logout'),
+    path('django_spa/api/', include(router.urls)),
 ]
+
+

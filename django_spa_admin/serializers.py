@@ -4,6 +4,7 @@ from rest_framework import serializers
 
 class DynamicModelSerializer(serializers.ModelSerializer):
     object__str__ = serializers.CharField(source='__str__')
+    pk = serializers.CharField()
 
     class Meta:
         model = None

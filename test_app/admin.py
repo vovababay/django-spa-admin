@@ -3,8 +3,8 @@ from test_app.models import ArticleModel, Card
 
 
 class ArticleAdmin(admin.ModelAdmin):
+    list_display = ('title', 'description')
     model_name = 'article'
-
 
 admin.site.register(ArticleModel, ArticleAdmin)
 admin.site.register(Card)

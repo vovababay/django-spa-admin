@@ -14,9 +14,10 @@ from rest_framework.permissions import AllowAny
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.viewsets import ViewSet
 from rest_framework.exceptions import ValidationError
+from rest_framework.decorators import action
 
 from django_spa_admin.serializers import DynamicModelSerializer
-from django_spa_admin.paginator import AdminLimitOffsetPaginator
+from django_spa_admin.paginator import AdminPageNumberPagination
 from django_spa_admin.registred_models import converted_dict, app_verbose_names
 
 
@@ -40,7 +41,7 @@ class TestViewSet(ViewSet):
         return model_class, admin_class
 
     def paginate_queryset(self, request, queryset, model_class):
-        pagination_class = AdminLimitOffsetPaginator()
+        pagination_class = AdminPageNumberPagination()
         page = pagination_class.paginate_queryset(queryset=queryset, request=request)
         if page is not None:
             serialized_data = self.serialize(data=page, model_class=model_class)
@@ -51,11 +52,12 @@ class TestViewSet(ViewSet):
     def list(self, request, *args, **kwargs):
         model_class, admin_class = self.get_model_data(request, *args, **kwargs)
         queryset=model_class.objects.all()
+        
         return self.paginate_queryset(request=request, queryset=queryset, model_class=model_class)
         
 
     def retrieve(self, request, *args, **kwargs):
-        pk = kwargs.ge('pk')
+        pk = kwargs.get('pk')
         model_class, admin_class = self.get_model_data(request, *args, **kwargs)
         try:
             obj = model_class.objects.get(pk=pk)
@@ -80,6 +82,25 @@ class TestViewSet(ViewSet):
     def update(self, request, *args, **kwargs):
         return Response(data={'action': 'update'}, status=status.HTTP_200_OK)
 
+    def sort_fields_by_order(self, fields, order):
+        order_dict = {key: index for index, key in enumerate(order)}
+        sorted_fields = sorted(fields, key=lambda x: order_dict.get(x['name'], float('inf')))
+        return sorted_fields
+
+
+    @action(detail=False, methods=['get'], url_path='fields')
+    def fields(self, request, *args, **kwargs):
+        model_class, admin_class = self.get_model_data(request, *args, **kwargs)
+        print()
+        fields = [{'name': field.name, 'verbose_name': field.verbose_name} for field in model_class._meta.fields]
+        fields = [field for field in fields if field['name'] in admin_class.list_display]
+        if not fields:
+            fields = [{'name': 'object__str__', 'verbose_name': model_class._meta.verbose_name}]
+        fields = self.sort_fields_by_order(fields, admin_class.list_display)
+        list_display_links = admin_class.list_display_links
+        if not list_display_links:
+            list_display_links = [fields[0]['name']]
+        return Response(data={'fields': fields, 'list_display_links': list_display_links}, status=status.HTTP_200_OK)
 
 class SideBarView(ViewSet):
     def list(sele, request, *args, **kwargs):
@@ -89,12 +110,12 @@ class SideBarView(ViewSet):
                 side_bar[model_meta_data[0]] = {}
             if 'models' not in side_bar[model_meta_data[0]]:
                 side_bar[model_meta_data[0]]['models'] = list()
-            
+            # print(model_class['model']._meta.__dict__)
             side_bar[model_meta_data[0]]['models'].append(
                 {
                     'model_name': model_meta_data[1],
-                    'verbose_name': model_class['model']._meta.verbose_name,
-                    'verbose_name_plural': model_class['model']._meta.verbose_name_plural,
+                    'verbose_name': model_class['model']._meta.verbose_name.title(),
+                    'verbose_name_plural': model_class['model']._meta.verbose_name_plural.title(),
                 }
             )
             side_bar[model_meta_data[0]]['verbose_name'] = app_verbose_names.get(model_meta_data[0])

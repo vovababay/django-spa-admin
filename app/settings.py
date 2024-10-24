@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,6 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+CORS_ALLOW_ALL_ORIGINS = True  # Разрешаем все домены (для разработки)
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_spa_admin',
     'rest_framework',
-    'test_app'
+    'test_app',
+    'webpack_loader',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -106,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'Ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -118,7 +124,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+# Статические файлы (CSS, JavaScript, изображения)
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'frontend', 'dist'),  # Указываем директорию с бандлами
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -134,3 +146,16 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',  # Это разрешение можно настраивать в зависимости от ручки
     ],
 }
+
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,  # Кешировать только в продакшн режиме
+        'BUNDLE_DIR_NAME': 'dist/',  # Директория, где находятся бандлы
+        'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json'),  # Путь к webpack-stats.json
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        # 'IGNORE': [r'.+\.hot-update.js', r'.+\.map']
+    }
+}
+
