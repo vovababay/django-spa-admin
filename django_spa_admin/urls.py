@@ -14,7 +14,6 @@ def new_page_view(request):
 router = DefaultRouter()
 router.register(r'side_bar', SideBarView, basename='side_bar')
 
-
 urlpatterns = [
     # path('django_spa/admin/', index, name='index'),
     # path('django_spa/admin/<str:app_label>/<str:model_name>/', index, name='new_page_view'),
@@ -22,6 +21,16 @@ urlpatterns = [
     path('django_spa/api/<str:app_label>/<str:model_name>/fields/', TestViewSet.as_view(
         {
             'get': 'fields',
+        }
+    ), name='test-list'),
+    path('django_spa/api/last_actions/', TestViewSet.as_view(
+        {
+            'get': 'last_actions',
+        }
+    ), name='test-list'),
+    path('django_spa/api/<str:app_label>/app_models/', TestViewSet.as_view(
+        {
+            'get': 'app_models',
         }
     ), name='test-list'),
     path('django_spa/api/<str:app_label>/<str:model_name>/', TestViewSet.as_view(
@@ -43,5 +52,6 @@ urlpatterns = [
     path('django_spa/api/logout/', LogoutView.as_view(), name='logout'),
     path('django_spa/api/', include(router.urls)),
 ]
+
 
 

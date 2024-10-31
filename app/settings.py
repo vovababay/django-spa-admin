@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'test_app',
     'webpack_loader',
-    'corsheaders'
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -128,7 +128,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'frontend', 'dist'),  # Указываем директорию с бандлами
+    os.path.join(BASE_DIR, 'static', 'django_spa_admin'),  # Указываем директорию с бандлами
 ]
 
 
@@ -152,10 +152,11 @@ WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,  # Кешировать только в продакшн режиме
         'BUNDLE_DIR_NAME': 'dist/',  # Директория, где находятся бандлы
-        'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json'),  # Путь к webpack-stats.json
+        'STATS_FILE': os.path.join(BASE_DIR, 'django_spa_admin', 'frontend', 'webpack-stats.json'),  # Путь к webpack-stats.json
         'POLL_INTERVAL': 0.1,
         'TIMEOUT': None,
         # 'IGNORE': [r'.+\.hot-update.js', r'.+\.map']
     }
 }
+
 

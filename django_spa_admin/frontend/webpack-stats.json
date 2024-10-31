@@ -1,0 +1,16 @@
+{
+  "status": "done",
+  "assets": {
+    "bundle.js": {
+      "name": "bundle.js",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/static/django_spa_admin/bundle.js",
+      "publicPath": "/static/django_spa_admin/bundle.js"
+    }
+  },
+  "chunks": {
+    "main": [
+      "bundle.js"
+    ]
+  },
+  "publicPath": "/static/django_spa_admin/"
+}
