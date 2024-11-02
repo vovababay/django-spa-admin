@@ -9,9 +9,12 @@ export const ModelsTable = ({modelsByApp, loading, appVerboseName}) => {
     var title = 'Администрирование сайта';
     
     if (modelsByApp != null ){
-        const appLabel = Object.keys(modelsByApp)[0];
-        if (appLabel){
-            title = `Администрирование приложения ${modelsByApp[appLabel].verbose_name}` 
+        if (Object.keys(modelsByApp).length < 2){
+          const appLabel = Object.keys(modelsByApp)[0];
+          if (appLabel){
+              title = `Администрирование приложения ${modelsByApp[appLabel].verbose_name}` 
+        }
+       
     }
     }
     const columns = [

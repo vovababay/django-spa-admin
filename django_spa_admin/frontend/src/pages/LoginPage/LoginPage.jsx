@@ -17,11 +17,10 @@ export const LoginPage = () => {
             });
             SetRedirectToAdmin(true);
             message.success('Успешный вход!');
-            // Перенаправление после успешного входа, например, на главную страницу
-            // window.location.href = '/';
         } catch (error) {
-            message.error(error)
-            message.error('Неверные учетные данные');
+            if (error.status == 400){
+                message.error(error.response.data.error)
+            }
         }
     };
     if (redirectToAdmin) {
@@ -30,7 +29,7 @@ export const LoginPage = () => {
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
             <div style={{ width: 300, textAlign: 'center' }}>
-                <Title level={3}>Войти в аккаунт</Title>
+                <Title level={3}>Войти в административную панель</Title>
                 <Form
                     name="login_form"
                     initialValues={{ remember: true }}

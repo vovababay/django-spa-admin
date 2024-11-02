@@ -18,9 +18,9 @@ urlpatterns = [
     # path('django_spa/admin/', index, name='index'),
     # path('django_spa/admin/<str:app_label>/<str:model_name>/', index, name='new_page_view'),
     re_path(r'^django_spa/admin/.*$', index, name='django_spa_all_pages'),
-    path('django_spa/api/<str:app_label>/<str:model_name>/fields/', TestViewSet.as_view(
+    path('django_spa/api/<str:app_label>/<str:model_name>/meta/', TestViewSet.as_view(
         {
-            'get': 'fields',
+            'get': 'meta_data',
         }
     ), name='test-list'),
     path('django_spa/api/last_actions/', TestViewSet.as_view(

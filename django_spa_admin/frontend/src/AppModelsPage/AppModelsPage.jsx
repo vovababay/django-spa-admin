@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Table, Empty, Pagination } from 'antd';
 import { MainMenuLayout } from '../layouts/MainMenuLayout';
 import { ModelsTable } from '../components/ModelsTable/ModelsTable';
+import { getRequest } from '../api';
+import { handle403Error } from '../authService';
 
 
 export const AppModelsPage = ({ activeMenuItem, setActiveMenuItem }) => {
@@ -10,18 +12,24 @@ export const AppModelsPage = ({ activeMenuItem, setActiveMenuItem }) => {
     const [modelsByApp, SetModelsByApp] = useState([]);
     const [loading, setLoading] = useState(true);
     const [appVerboseName, SetAppVerboseName] = useState(null);
-    
+    const navigate = useNavigate();
+
     const fetchData = async (appLabelName) => {
         setLoading(true);
         try {
-            const dataResponse = await fetch(`/django_spa/api/${appLabelName}/app_models/`);
-            const dataResult = await dataResponse.json();
+            const dataResult = await getRequest(`/${appLabelName}/app_models/`)
+            console.log(dataResult)
             SetModelsByApp(dataResult || {});
             
             const appLabel = Object.keys(dataResult)[0];
-            SetAppVerboseName(dataResult[appLabel].verbose_name || null)
+            SetAppVerboseName(dataResult[appLabel]?.verbose_name || null)
+            
         } catch (error) {
-            console.error('Error fetching data:', error);
+            if (error.is403) {
+                handle403Error(navigate);
+              } else {
+                console.error('Error fetching data:', error);
+            }
         } finally {
             setLoading(false);
         }

@@ -1,4 +1,3 @@
-// src/authService.js
 import { message } from 'antd';
 
 export const handle403Error = (navigate) => {

@@ -2,20 +2,19 @@ const path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
 const webpack = require('webpack');
 
-
 module.exports = {
-    mode: 'development', // или 'production'
-    devtool: 'eval-source-map',  // Для улучшения отладки и вывода ошибок
-    entry: './src/index.js',  // Точка входа в ваше React-приложение
+    mode: 'development',
+    devtool: 'eval-source-map',
+    entry: './src/index.js',
     output: {
-        path: path.resolve(__dirname, '../../static/django_spa_admin/'),
-        filename: 'bundle.js',  // Собранный файл
-        publicPath: '/static/django_spa_admin/',  // Используется для доступа к бандлам через Django
+        path: path.resolve(__dirname, '../../static/django_spa_admin/js/'),
+        filename: 'bundle.js',
+        publicPath: '/static/',
     },
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,  // Обработка JavaScript и JSX файлов
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
@@ -25,37 +24,47 @@ module.exports = {
                 },
             },
             {
-                test: /\.css$/,  // Обработка CSS файлов
-                use: ['style-loader', 'css-loader'],  // Используем loaders для обработки CSS
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
             },
-            
         ],
     },
     devServer: {
         static: {
-            directory: path.resolve(__dirname, '../static/django_spa_admin/'),  // Путь к статическим файлам
+            directory: path.resolve(__dirname, '../../static/django_spa_admin/js/'),
         },
         devMiddleware: {
-            publicPath: '/static/django_spa_admin/',  // Используется для указания публичного пути для DevServer
+            publicPath: '/static/',
         },
-        hot: true,  // Включает горячую замену модулей
-        headers: { 'Access-Control-Allow-Origin': '*' },  // Для разрешения CORS
-        historyApiFallback: true,  // Для корректной работы с react-router
+        hot: true,
+        headers: { 'Access-Control-Allow-Origin': '*' },
+        historyApiFallback: true,
         client: {
             overlay: {
                 warnings: true,
-                errors: true,  // Показывать ошибки на экране
+                errors: true,
             },
+            logging: 'info',
         },
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),  // Добавляем плагин HMR
         new BundleTracker({
-            path: path.resolve(__dirname, '../../static/django_spa_admin/'),  // Путь для сохранения webpack-stats.json
-            filename: 'webpack-stats.json',  // Имя файла
+            path: path.resolve(__dirname),
+            filename: 'webpack-stats.json',
+            log: true,
         }),
     ],
     resolve: {
-        extensions: ['.js', '.jsx'],  // Позволяет опускать расширения при импорте
+        extensions: ['.js', '.jsx'],
     },
 };
+
+// Настройка компилятора
+const compiler = webpack(module.exports);
+
+compiler.hooks.done.tap('DonePlugin', (stats) => {
+    const info = stats.toJson();
+
+    console.log('Compiled assets:', info.assets.map(asset => asset.name).join(', '));
+    console.log('Output path:', info.outputPath);
+});

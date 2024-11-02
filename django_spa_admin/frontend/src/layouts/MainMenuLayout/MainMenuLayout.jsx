@@ -63,7 +63,6 @@ export const MainMenuLayout = ({ children, activeMenuItem, modelsByApp }) => {
           />
           <Layout style={{ padding: '24px 0', background: colorBgContainer, borderRadius: borderRadiusLG, flexGrow: 1}}>
             <Content style={{ padding: '0 24px', flexGrow: 1 }}>
-            dskadhjksahjk
               {children}
             </Content>
           </Layout>

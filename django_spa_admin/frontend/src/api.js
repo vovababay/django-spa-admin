@@ -36,9 +36,7 @@ api.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response && error.response.status === 403) {
-            message.error('Сессия истекла. Пожалуйста, войдите снова.');
             error.is403 = true;
-            // Обработайте редирект или другие действия здесь
         }
         return Promise.reject(error);
     }

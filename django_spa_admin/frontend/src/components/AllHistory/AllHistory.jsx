@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table, Typography } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { getRequest } from '../../api';
-
+import { PlusOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons';
 const { Text } = Typography;
 
 
@@ -17,9 +17,9 @@ const columns = [
       key: 'action',
       render: (text, record) => (
         <>
-          {record.action_flag === CHANGE && <Text type="warning">✏️</Text>}
-          {record.action_flag === DELETION && <Text type="danger">❌</Text>}
-          {record.action_flag === ADDITION && <Text type="success">➕</Text>}
+          {record.action_flag === CHANGE && <Text type="warning"><EditOutlined /></Text>}
+          {record.action_flag === DELETION && <Text type="danger"><CloseOutlined /></Text>}
+          {record.action_flag === ADDITION && <Text type="success"><PlusOutlined/></Text>}
           
 
           {

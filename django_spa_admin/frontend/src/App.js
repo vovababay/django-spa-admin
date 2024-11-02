@@ -8,6 +8,8 @@ import { ElementPage } from './ElementPage';
 import { AppModelsPage } from './AppModelsPage';
 import { HomePage } from './HomePage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
+import { hot } from 'react-hot-loader/root';
+
 
 const App = () => {
   const [activeMenuItem, setActiveMenuItem] = useState({"appLabel": null, "modelName": null});
@@ -69,4 +71,6 @@ const App = () => {
   );
 };
 
-export default App;
+// export default App;
+export default hot(App);
+

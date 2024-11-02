@@ -39,10 +39,12 @@ class DynamicModelRetrieveSerializer(serializers.ModelSerializer):
 
         for field_name, value in representation.items():
             field = self.Meta.model._meta.get_field(field_name)
+            print(field.__dict__)
             formatted_data[field_name] = {
                 "value": value,
                 "type": field.get_internal_type(),
-                "verbose_name": self.capitalize_first_letter(field.verbose_name)
+                "verbose_name": self.capitalize_first_letter(field.verbose_name),
+                "is_primary_key": field.primary_key
             }
         
         return formatted_data

@@ -24,14 +24,11 @@ export const HomePage = ({ activeMenuItem, setActiveMenuItem }) => {
             setModelByApp(fieldsResult || {});
 
         } catch (error) {
-            console.log(error)
             if (error.is403) {
-                console.log("403")
                 handle403Error(navigate);
             } else {
                 console.error('Error fetching data:', error);
             }
-            console.error('Error fetching data:', error);
         } finally {
             setLoading(false);
         }

@@ -127,8 +127,12 @@ USE_TZ = True
 # Статические файлы (CSS, JavaScript, изображения)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static', 'django_spa_admin', 'js'),  # Указываем директорию с бандлами
+# ]
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static', 'django_spa_admin'),  # Указываем директорию с бандлами
+    os.path.join(BASE_DIR, "static/django_spa_admin/js/"),
 ]
 
 
@@ -151,7 +155,7 @@ REST_FRAMEWORK = {
 WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,  # Кешировать только в продакшн режиме
-        'BUNDLE_DIR_NAME': 'dist/',  # Директория, где находятся бандлы
+        'BUNDLE_DIR_NAME': 'static/',  # Директория, где находятся бандлы
         'STATS_FILE': os.path.join(BASE_DIR, 'django_spa_admin', 'frontend', 'webpack-stats.json'),  # Путь к webpack-stats.json
         'POLL_INTERVAL': 0.1,
         'TIMEOUT': None,

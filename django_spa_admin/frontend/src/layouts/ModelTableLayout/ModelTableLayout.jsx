@@ -13,6 +13,9 @@ import {
 } from '@ant-design/icons';
 import { LeftMenu } from '../../LeftMenu';
 import { MenuWithLogout } from '../../components/MenuWithLogout/MenuWithLogout';
+// import { handle403Error } from '../authService';
+import { getRequest } from '../../api';
+import { handle403Error } from '../../authService';
 
 const items = [
   UserOutlined,
@@ -37,6 +40,7 @@ export const ModelTableLayout = ({ children }) => {
   const { appLabel, modelName, pk } = useParams();
     const [items2, setItems] = useState([]);
     const [activeMenuItem, setActiveMenuItem] = useState({"appLabel": null, "modelName": null});
+    const navigate = useNavigate();
   const getBreadcrumb = () => {
     // Находим элемент по ключу appLabel
     const appItem = items2.find(item => item.key === activeMenuItem.appLabel);
@@ -62,8 +66,7 @@ export const ModelTableLayout = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/django_spa/api/side_bar/');
-        const data = await response.json();
+        const data = await getRequest('/side_bar/');
         const formattedItems = Object.entries(data).map(([key, value]) => ({
           key: key,
           label: value.verbose_name,
@@ -81,7 +84,11 @@ export const ModelTableLayout = ({ children }) => {
           "modelName": modelName
         })
       } catch (error) {
-        console.error('Error fetching data:', error);
+        if (error.is403) {
+          handle403Error(navigate);
+        } else {
+          console.error('Error fetching data:', error);
+      }
       }
     };
 

@@ -1,8 +1,9 @@
 from collections import defaultdict
+import traceback
 from rest_framework.response import Response
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.db.models.query import QuerySet
+from django.db.models.query import QuerySet, Q
 from django.contrib.auth import authenticate, login, logout
 
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -21,6 +22,33 @@ from django_spa_admin.serializers import DynamicModelListSerializer, DynamicMode
 from django_spa_admin.paginator import AdminPageNumberPagination
 from django_spa_admin.registred_models import converted_dict, app_verbose_names
 
+
+
+
+from django import forms
+from django.contrib import admin
+from django.db import models
+
+
+def get_widgets_by_admin_model(admin_model_class):
+    # Проверка, что передан именно класс
+    # if not isinstance(admin_model_class, type) or not issubclass(admin_model_class, admin.ModelAdmin):
+        # raise TypeError("Expected a ModelAdmin class, got an instance or incorrect type instead.")
+    
+    # Создаём временный экземпляр класса ModelAdmin
+    model = admin_model_class.model
+    # print(admin_model_class.__dir__())
+    # admin_instance = admin_model_class(model, admin.site)
+
+    widgets = {}
+    for field in model._meta.fields:
+        formfield = admin_model_class.formfield_for_dbfield(field, request=None)
+        
+        if formfield and isinstance(formfield.widget, forms.Widget):
+            print(formfield.label, formfield.__dict__)
+            widgets[field.name] = formfield.widget
+
+    return widgets
 
 class TestViewSet(ViewSet):
     authentication_classes = [SessionAuthentication]
@@ -47,7 +75,41 @@ class TestViewSet(ViewSet):
     
     def list(self, request, *args, **kwargs):
         model_class, admin_class = self.get_model_data(request, *args, **kwargs)
-        queryset=model_class.objects.all()
+        query_params = request.query_params
+        search_term = query_params.get('q', None)
+        query = Q()
+        if search_term:
+            search_fields = admin_class.search_fields if admin_class.search_fields else []
+            for search_field in search_fields:
+                query |= Q(**{f'{search_field}__icontains': search_term})
+        try:
+            queryset=model_class.objects.filter(query)
+        except Exception as exc:
+            return Response(data={'errors': [str(exc)]}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            order_by_params = query_params.get('o', '')
+            if not order_by_params:
+                order_by_params = []
+            else:
+                order_by_params = order_by_params.split('.')
+            list_display_fields_by_position = {}
+            for index, field in enumerate(admin_class.list_display):
+                list_display_fields_by_position[index+1] = field
+            order = []
+            for order_by_field in order_by_params:
+                prefix = ''
+                if order_by_field.startswith('-'):
+                    prefix = '-'
+                    order_by_field = order_by_field.replace('-', '')
+                order_by_field = int(order_by_field)
+                
+                field = list_display_fields_by_position.get(order_by_field)
+                order.append('{}{}'.format(prefix, field))
+            queryset = queryset.order_by(*order)
+        except Exception as exc:
+            print(traceback.format_exc())
+            return Response(data={'errors': [str(exc)]}, status=status.HTTP_400_BAD_REQUEST)
+
         return self.paginate_queryset(request=request, queryset=queryset, model_class=model_class)
         
 
@@ -56,6 +118,9 @@ class TestViewSet(ViewSet):
         model_class, admin_class = self.get_model_data(request, *args, **kwargs)
         try:
             obj = model_class.objects.get(pk=pk)
+            # print(type(admin_class))
+            # a = get_widgets_by_admin_model(admin_class)
+            # print(a)
         except model_class.DoesNotExist:
             return Response(data={'error': ['object does not exist']}, status=status.HTTP_400_BAD_REQUEST)
         serialized_data = DynamicModelRetrieveSerializer(obj, model_class=model_class).data
@@ -84,7 +149,7 @@ class TestViewSet(ViewSet):
 
 
     @action(detail=False, methods=['get'], url_path='fields')
-    def fields(self, request, *args, **kwargs):
+    def meta_data(self, request, *args, **kwargs):
         model_class, admin_class = self.get_model_data(request, *args, **kwargs)
         fields = [{'name': field.name, 'verbose_name': field.verbose_name, 'type': field.get_internal_type()} for field in model_class._meta.fields]
         fields = [field for field in fields if field['name'] in admin_class.list_display]
@@ -94,7 +159,19 @@ class TestViewSet(ViewSet):
         list_display_links = admin_class.list_display_links
         if not list_display_links:
             list_display_links = [fields[0]['name']]
-        return Response(data={'fields': fields, 'list_display_links': list_display_links}, status=status.HTTP_200_OK)
+        search_fields = admin_class.search_fields if admin_class.search_fields else []
+        # for filter in admin_class.list_filter:
+        #     print(filter, type(filter))
+        
+        #     if callable(filter):
+        #         print("IS CALLABLE")
+        #         print(filter(request=request, params={}, model=model_class, model_admin=admin_class).lookup_choices)
+        data = {
+            'fields': fields, 
+            'list_display_links': list_display_links,
+            'exists_search': len(search_fields) > 0
+            }
+        return Response(data=data, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['get'], url_path='app_models')
     def app_models(self, request, *args, **kwargs):
