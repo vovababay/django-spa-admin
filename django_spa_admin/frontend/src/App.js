@@ -3,10 +3,11 @@ import './reset.css';
 import './App.css';
 
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
-import { DynamicPage } from './DynamicPage';
-import { ElementPage } from './ElementPage';
-import { AppModelsPage } from './AppModelsPage';
-import { HomePage } from './HomePage';
+import { DynamicPage } from './pages/DynamicPage';
+import { ElementPage } from './pages/ElementPage';
+import { CreateElementPage } from './pages/CreateElementPage';
+import { AppModelsPage } from './pages/AppModelsPage';
+import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { hot } from 'react-hot-loader/root';
 
@@ -43,11 +44,20 @@ const App = () => {
                 />
                 } 
         />
-        <Route 
-            path="/django_spa/admin/:appLabel/:modelName/:pk/" 
-            element={<RedirectToChange />} 
-        />
-        <Route 
+          <Route
+              path="/django_spa/admin/:appLabel/:modelName/:pk/"
+              element={<RedirectToChange />}
+          />
+          <Route
+              path="/django_spa/admin/:appLabel/:modelName/add/"
+              element={
+              <CreateElementPage
+                  activeMenuItem={activeMenuItem}
+                  setActiveMenuItem={setActiveMenuItem}
+              />
+            }
+          />
+          <Route
             path="/django_spa/admin/:appLabel/:modelName/:pk/change/" 
             element={
                 <ElementPage 
@@ -71,6 +81,5 @@ const App = () => {
   );
 };
 
-// export default App;
-export default hot(App);
+export default App;
 

@@ -62,4 +62,13 @@ export const postRequest = async (url, data, config = {}) => {
     }
 };
 
+export const patchRequest = async (url, data, config = {}) => {
+    try {
+        const response = await api.patch(url, data, config);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export default api;

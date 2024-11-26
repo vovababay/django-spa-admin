@@ -11,26 +11,13 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { LeftMenu } from '../../LeftMenu';
+import { LeftMenu } from '../../components/LeftMenu';
 import { MenuWithLogout } from '../../components/MenuWithLogout/MenuWithLogout';
 // import { handle403Error } from '../authService';
 import { getRequest } from '../../api';
 import { handle403Error } from '../../authService';
 
-const items = [
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  AppstoreOutlined,
-  TeamOutlined,
-  ShopOutlined,
-].map((icon, index) => ({
-  key: String(index + 1),
-  icon: React.createElement(icon),
-  label: `Test ${index + 1}`,
-}));
+
 const { Header, Content, Footer, Sider } = Layout;
 
 

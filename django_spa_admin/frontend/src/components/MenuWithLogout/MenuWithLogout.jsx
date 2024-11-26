@@ -15,11 +15,7 @@ export const MenuWithLogout = () => {
         }
     };
 
-    const items1 = [
-        ...['1', '2', '3'].map((key) => ({
-            key,
-            label: `Test ${key}`,
-        })),
+    const headerMenu = [
         {
             key: 'logout',
             label: (
@@ -39,7 +35,7 @@ export const MenuWithLogout = () => {
             theme="dark"
             mode="horizontal"
             defaultSelectedKeys={['1']}
-            items={items1}
+            items={headerMenu}
             style={{ display: 'flex', justifyContent: 'end', flex: 1, minWidth: 0 }} // Обеспечиваем равномерное распределение
         />
     );

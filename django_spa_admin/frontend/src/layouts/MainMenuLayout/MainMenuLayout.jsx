@@ -13,26 +13,8 @@ import {
 } from '@ant-design/icons';
 import { MenuWithLogout } from '../../components/MenuWithLogout/MenuWithLogout';
 
-const items = [
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  AppstoreOutlined,
-  TeamOutlined,
-  ShopOutlined,
-].map((icon, index) => ({
-  key: String(index + 1),
-  icon: React.createElement(icon),
-  label: `Test ${index + 1}`,
-}));
-const { Header, Content, Footer, Sider } = Layout;
 
-const items1 = ['1', '2', '3'].map((key) => ({
-  key,
-  label: `Test ${key}`,
-}));
+const { Header, Content, Footer, Sider } = Layout;
 
 export const MainMenuLayout = ({ children, activeMenuItem, modelsByApp }) => {
   const { token: { colorBgContainer, borderRadiusLG } } = theme.useToken();

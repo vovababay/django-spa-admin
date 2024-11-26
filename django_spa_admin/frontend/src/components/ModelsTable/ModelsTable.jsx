@@ -1,11 +1,12 @@
 import React from 'react';
-import { Table } from 'antd';
-import { Link } from 'react-router-dom';
+import {Button, Table} from 'antd';
+import {Link, useNavigate} from 'react-router-dom';
+import {PlusOutlined} from "@ant-design/icons";
 
 
 
 export const ModelsTable = ({modelsByApp, loading, appVerboseName}) => {
-    
+    const navigate = useNavigate();
     var title = 'Администрирование сайта';
     
     if (modelsByApp != null ){
@@ -17,6 +18,10 @@ export const ModelsTable = ({modelsByApp, loading, appVerboseName}) => {
        
     }
     }
+    const addObjHandle = (appLabel, modelName) => {
+        const url = `/django_spa/admin/${appLabel}/${modelName}/add/`;
+        navigate(url);
+    };
     const columns = [
         {
           title: title,
@@ -33,12 +38,23 @@ export const ModelsTable = ({modelsByApp, loading, appVerboseName}) => {
               )
             }
             return (
-              <Link
-                to={`/django_spa/admin/${record.appLabel}/${record.modelName}/`}
-                style={{ color: '#417893', cursor: 'pointer' }}
-              >
-                {text}
-              </Link>
+                <div style={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
+                  <Link
+                    to={`/django_spa/admin/${record.appLabel}/${record.modelName}/`}
+                    style={{ color: '#417893', cursor: 'pointer' }}
+                  >
+                    {text}
+                  </Link>
+                    <Button
+                        icon={<PlusOutlined />} // Иконка для кнопки "+"
+                        size="small"
+                        style={{ marginLeft: 'auto' }} // Прижать кнопку к правому краю
+                        onClick={(e) => {
+                            e.stopPropagation(); // Чтобы клик по кнопке не вызывал handleMenuClick
+                            addObjHandle(record.appLabel, record.modelName);
+                        }}
+                    />
+                </div>
             );
           },
         },

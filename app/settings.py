@@ -41,10 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_spa_admin',
+
     'rest_framework',
-    'test_app',
     'webpack_loader',
-    'corsheaders',
+    # 'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -127,39 +127,23 @@ USE_TZ = True
 # Статические файлы (CSS, JavaScript, изображения)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static', 'django_spa_admin', 'js'),  # Указываем директорию с бандлами
-# ]
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static/django_spa_admin/js/"),
-]
-
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',  # Это разрешение можно настраивать в зависимости от ручки
-    ],
-}
 
+# To Lib
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, os.path.join(STATIC_ROOT, 'django_spa_admin/js/')),
+]
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'CACHE': not DEBUG,  # Кешировать только в продакшн режиме
-        'BUNDLE_DIR_NAME': 'static/',  # Директория, где находятся бандлы
-        'STATS_FILE': os.path.join(BASE_DIR, 'django_spa_admin', 'frontend', 'webpack-stats.json'),  # Путь к webpack-stats.json
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': STATIC_ROOT,
+        'STATS_FILE': os.path.join(BASE_DIR, 'django_spa_admin', 'frontend', 'webpack-stats.json'),
         'POLL_INTERVAL': 0.1,
         'TIMEOUT': None,
-        # 'IGNORE': [r'.+\.hot-update.js', r'.+\.map']
     }
 }
 

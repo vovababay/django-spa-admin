@@ -1,0 +1,9 @@
+include README.rst
+include LICENSE
+recursive-include docs *.rst
+recursive-include django_spa_admin/templates *.html
+recursive-include django_spa_admin/static *
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+recursive-exclude * empty

@@ -22,3 +22,5 @@ def get_app_verbose_names():
     return app_verbose_names
 
 app_verbose_names = get_app_verbose_names()
+
+
