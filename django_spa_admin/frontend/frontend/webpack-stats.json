@@ -1,0 +1,21 @@
+{
+  "status": "done",
+  "assets": {
+    "15f2789dd231f36d43a4.svg": {
+      "name": "15f2789dd231f36d43a4.svg",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/15f2789dd231f36d43a4.svg",
+      "publicPath": "/static/15f2789dd231f36d43a4.svg"
+    },
+    "bundle.js": {
+      "name": "bundle.js",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/bundle.js",
+      "publicPath": "/static/bundle.js"
+    }
+  },
+  "chunks": {
+    "main": [
+      "bundle.js"
+    ]
+  },
+  "publicPath": "/static/"
+}

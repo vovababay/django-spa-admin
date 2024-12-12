@@ -1,6 +1,7 @@
 from django.apps import AppConfig
 from django.conf import settings
 import os
+from importlib.resources import files
 
 
 class DjangoSpaAdminConfig(AppConfig):
@@ -9,34 +10,40 @@ class DjangoSpaAdminConfig(AppConfig):
     verbose_name = 'Django SPA Admin'
 
     def ready(self):
-        # Добавление приложений в INSTALLED_APPS
-        default_apps = [
-            'rest_framework',
-            'webpack_loader',
-            'corsheaders',
-        ]
-
-        for app in default_apps:
-            if app not in settings.INSTALLED_APPS:
-                settings.INSTALLED_APPS.append(app)
-
-        # Добавление middleware
-        middleware = 'corsheaders.middleware.CorsMiddleware'
-        if middleware not in settings.MIDDLEWARE:
-            settings.MIDDLEWARE.insert(0, middleware)  # Вставляем в начало списка
-
-        # Добавление статической директории
-        static_dir = os.path.join(settings.BASE_DIR, settings.STATIC_ROOT, 'django_spa_admin/js/')
+    #     print("django_spa_admin ready() called")
+    #     # Добавление приложений в INSTALLED_APPS
+    #     default_apps = [
+    #         'rest_framework',
+    #         'webpack_loader',
+    #         'corsheaders',
+    #     ]
+    #     new_default_apps = []
+    # #
+    #     for app in default_apps:
+    #         if app not in settings.INSTALLED_APPS:
+    #             new_default_apps.append(app)
+    #
+    #     settings.INSTALLED_APPS =  new_default_apps + settings.INSTALLED_APPS
+    #     print('ready(): INSTALLED_APPS: {}'.format(settings.INSTALLED_APPS))
+    #     settings.INSTALLED_APPS = ['12112312312']
+    #     # Добавление middleware
+    #     middleware = 'corsheaders.middleware.CorsMiddleware'
+    #     if middleware not in settings.MIDDLEWARE:
+    #         settings.MIDDLEWARE.insert(0, middleware)  # Вставляем в начало списка
+    #
+    #     # Добавление статической директории
+        static_dir = files('django_spa_admin').joinpath('static', 'django_spa_admin', 'js')
         if static_dir not in settings.STATICFILES_DIRS:
             settings.STATICFILES_DIRS.append(static_dir)
-
-        # Настройка webpack_loader
+    #
+    #     # Настройка webpack_loader
         if not hasattr(settings, 'WEBPACK_LOADER'):
+
             settings.WEBPACK_LOADER = {
                 'DEFAULT': {
                     'CACHE': not settings.DEBUG,
                     'BUNDLE_DIR_NAME': settings.STATIC_ROOT,
-                    'STATS_FILE': os.path.join(settings.BASE_DIR, 'django_spa_admin', 'frontend', 'webpack-stats.json'),
+                    'STATS_FILE': files('django_spa_admin').joinpath('frontend', 'webpack-stats.json'),
                     'POLL_INTERVAL': 0.1,
                     'TIMEOUT': None,
                 }

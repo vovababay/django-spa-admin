@@ -7,7 +7,7 @@ module.exports = {
     devtool: 'eval-source-map',
     entry: './src/index.js',
     output: {
-        path: path.resolve(__dirname, '../../static/django_spa_admin/js/'),
+        path: path.resolve(__dirname, '../static/django_spa_admin/js/'),
         filename: 'bundle.js',
         publicPath: '/static/',
     },
@@ -31,7 +31,7 @@ module.exports = {
     },
     devServer: {
         static: {
-            directory: path.resolve(__dirname, '../../static/django_spa_admin/js/'),
+            directory: path.resolve(__dirname, '../static/django_spa_admin/js/'),
         },
         devMiddleware: {
             publicPath: '/static/',
@@ -46,11 +46,15 @@ module.exports = {
             },
             logging: 'info',
         },
+        proxy: {
+            '/api': 'http://localhost:8000'
+        }
+
     },
     plugins: [
         new BundleTracker({
             path: path.resolve(__dirname),
-            filename: 'webpack-stats.json',
+            filename: './frontend/webpack-stats.json',
             log: true,
         }),
     ],

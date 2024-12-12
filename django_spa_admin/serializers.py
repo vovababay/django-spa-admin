@@ -1,7 +1,4 @@
-from time import perf_counter
-
 from django.contrib import admin
-from isort.profiles import black
 from rest_framework import serializers
 
 
