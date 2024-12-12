@@ -11,7 +11,7 @@ def read_file(fpath):
 
 setup(
     name = 'django_spa_admin',
-    version = '0.1.5',
+    version = '0.0.1',
     description = 'Django SPA Admin',
     long_description=read_file('README.rst'),
     author = 'Vladimir Babaev.',
@@ -25,9 +25,10 @@ setup(
     include_package_data = True,
     install_requires=[
         'Django>=4.2.0',
-        'djangorestframework',
         'django-webpack-loader',
-        'django-cors-headers'
+        'djangorestframework',
+        'django-cors-headers',
+        'webpack-bundle-tracker',
     ],
     classifiers = [
         "Framework :: Django",
