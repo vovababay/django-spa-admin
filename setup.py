@@ -28,7 +28,6 @@ setup(
         'django-webpack-loader',
         'djangorestframework',
         'django-cors-headers',
-        'webpack-bundle-tracker',
     ],
     classifiers = [
         "Framework :: Django",
