@@ -11,7 +11,7 @@ INSTALLED_APPS += [
 ```
 
 
-### В urls.py нужно добавить
+### В urls.py нужно добавить эту настройку
 ```python
 from django.urls import path, include
 urlpatterns += [path('', include('django_spa_admin.urls')),]
