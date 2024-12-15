@@ -45,9 +45,6 @@ module.exports = {
                 errors: true,
             },
             logging: 'info',
-        },
-        proxy: {
-            '/api': 'http://localhost:8000'
         }
 
     },

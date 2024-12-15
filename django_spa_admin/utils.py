@@ -48,7 +48,6 @@ def get_widgets_by_admin_model(admin_model_class):
         formfield = admin_model_class.formfield_for_dbfield(field, request=None)
 
         if formfield and isinstance(formfield.widget, forms.Widget):
-            print(formfield.label, formfield.__dict__)
             widgets[field.name] = formfield.widget
 
     return widgets

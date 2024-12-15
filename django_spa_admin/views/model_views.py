@@ -73,7 +73,6 @@ class ModelViewSet(ViewSet):
                 order.append('{}{}'.format(prefix, field))
             queryset = queryset.order_by(*order)
         except Exception as exc:
-            print(traceback.format_exc())
             return Response(data={'errors': [str(exc)]}, status=status.HTTP_400_BAD_REQUEST)
         paginate = to_bool(query_params.get('paginate', True))
         if not paginate:
@@ -219,6 +218,5 @@ class ModelViewSet(ViewSet):
             'actions': actions_data,
             'fields': fields
         }
-        print(data)
         return Response(data=data, status=status.HTTP_200_OK)
 
