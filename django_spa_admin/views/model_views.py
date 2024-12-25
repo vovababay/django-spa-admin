@@ -1,5 +1,6 @@
 import traceback
 
+from django.apps import apps
 from django.contrib import admin
 from django.contrib.admin.models import LogEntry, ACTION_FLAG_CHOICES, CHANGE, ADDITION
 from django.contrib.contenttypes.models import ContentType
@@ -220,3 +221,42 @@ class ModelViewSet(ViewSet):
         }
         return Response(data=data, status=status.HTTP_200_OK)
 
+    @action(detail=True, methods=['get'], url_path='history')
+    def history(self, request, *args, **kwargs):
+        from django.contrib.admin.models import LogEntry
+        from django.contrib.contenttypes.models import ContentType
+        pk = kwargs.get('pk')
+        app_label = kwargs.get('app_label')
+        model_name = kwargs.get('model_name')
+        model = apps.get_model(app_label=app_label, model_name=model_name)
+        instance = model.objects.get(id=pk)
+        print(instance)
+
+        content_type = ContentType.objects.get_for_model(model)
+        content_type_by_id = ContentType.objects.in_bulk(field_name='id')
+        recent_actions = LogEntry.objects.filter(object_id=pk, content_type=content_type).order_by('-action_time')[:10]
+
+        actions = []
+        for action in recent_actions:
+            content_type = content_type_by_id.get(action.content_type_id)
+            actions.append(
+                {
+                    'user': str(action.user),
+                    'action_time': action.action_time,
+                    'action': action.get_action_flag_display(),
+                    'object': action.object_repr,
+                    'app_label': content_type.app_label,
+                    'model_name': content_type.model,
+                    'id': action.object_id,
+                    'action_flag': action.action_flag,
+                    'change_message': action.get_change_message()
+                }
+            )
+        data = {
+            'object': {
+                'id': instance.id,
+                '__str__': str(instance)
+            },
+            'actions': actions
+        }
+        return Response(data=data, status=status.HTTP_200_OK)
