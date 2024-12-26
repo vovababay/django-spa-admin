@@ -223,35 +223,30 @@ class ModelViewSet(ViewSet):
 
     @action(detail=True, methods=['get'], url_path='history')
     def history(self, request, *args, **kwargs):
-        from django.contrib.admin.models import LogEntry
-        from django.contrib.contenttypes.models import ContentType
         pk = kwargs.get('pk')
         app_label = kwargs.get('app_label')
         model_name = kwargs.get('model_name')
         model = apps.get_model(app_label=app_label, model_name=model_name)
-        instance = model.objects.get(id=pk)
-        print(instance)
-
+        try:
+            instance = model.objects.get(id=pk)
+        except model.DoesNotExist as exc:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         content_type = ContentType.objects.get_for_model(model)
-        content_type_by_id = ContentType.objects.in_bulk(field_name='id')
-        recent_actions = LogEntry.objects.filter(object_id=pk, content_type=content_type).order_by('-action_time')[:10]
-
-        actions = []
-        for action in recent_actions:
-            content_type = content_type_by_id.get(action.content_type_id)
-            actions.append(
-                {
-                    'user': str(action.user),
-                    'action_time': action.action_time,
-                    'action': action.get_action_flag_display(),
-                    'object': action.object_repr,
-                    'app_label': content_type.app_label,
-                    'model_name': content_type.model,
-                    'id': action.object_id,
-                    'action_flag': action.action_flag,
-                    'change_message': action.get_change_message()
-                }
-            )
+        recent_actions = LogEntry.objects.filter(object_id=pk, content_type=content_type).order_by('-action_time')
+        actions = [
+            {
+                'user': str(log_action.user),
+                'action_time': log_action.action_time,
+                'action': log_action.get_action_flag_display(),
+                'object': log_action.object_repr,
+                'app_label': content_type.app_label,
+                'model_name': content_type.model,
+                'id': log_action.object_id,
+                'action_flag': log_action.action_flag,
+                'change_message': log_action.get_change_message()
+            }
+            for log_action in recent_actions
+        ]
         data = {
             'object': {
                 'id': instance.id,
