@@ -1,5 +1,6 @@
 import traceback
 
+from django.apps import apps
 from django.contrib import admin
 from django.contrib.admin.models import LogEntry, ACTION_FLAG_CHOICES, CHANGE, ADDITION
 from django.contrib.contenttypes.models import ContentType
@@ -220,3 +221,37 @@ class ModelViewSet(ViewSet):
         }
         return Response(data=data, status=status.HTTP_200_OK)
 
+    @action(detail=True, methods=['get'], url_path='history')
+    def history(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        app_label = kwargs.get('app_label')
+        model_name = kwargs.get('model_name')
+        model = apps.get_model(app_label=app_label, model_name=model_name)
+        try:
+            instance = model.objects.get(id=pk)
+        except model.DoesNotExist as exc:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        content_type = ContentType.objects.get_for_model(model)
+        recent_actions = LogEntry.objects.filter(object_id=pk, content_type=content_type).order_by('-action_time')
+        actions = [
+            {
+                'user': str(log_action.user),
+                'action_time': log_action.action_time,
+                'action': log_action.get_action_flag_display(),
+                'object': log_action.object_repr,
+                'app_label': content_type.app_label,
+                'model_name': content_type.model,
+                'id': log_action.object_id,
+                'action_flag': log_action.action_flag,
+                'change_message': log_action.get_change_message()
+            }
+            for log_action in recent_actions
+        ]
+        data = {
+            'object': {
+                'id': instance.id,
+                '__str__': str(instance)
+            },
+            'actions': actions
+        }
+        return Response(data=data, status=status.HTTP_200_OK)

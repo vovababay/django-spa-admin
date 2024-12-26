@@ -16,3 +16,11 @@ INSTALLED_APPS += [
 from django.urls import path, include
 urlpatterns += [path('', include('django_spa_admin.urls')),]
 ```
+
+# develop
+
+###  !!! use npm v18
+### Запуск фронта в hot-reload
+```commandline
+npx webpack serve
+```
