@@ -2,10 +2,9 @@ const path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
 
 module.exports = {
-    entry: './src/app/index.tsx', // Точка входа
     mode: 'development', // Режим разработки
     devtool: 'eval-source-map', // Быстрое создание source-map для отладки
-
+    entry: './src/index.js', // Точка входа
     output: {
         path: path.resolve(__dirname, '../static/django_spa_admin/js/'), // Папка для сборки
         filename: 'bundle.js', // Имя итогового файла
@@ -14,7 +13,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx|ts|tsx)$/, // Обработка JS/JSX файлов
+                test: /\.(js|jsx)$/, // Обработка JS/JSX файлов
                 exclude: /node_modules/, // Исключение node_modules
                 use: {
                     loader: 'babel-loader',
@@ -44,13 +43,10 @@ module.exports = {
     plugins: [
         new BundleTracker({
             path: path.resolve(__dirname), // Путь к файлу статистики
-            filename: './webpack-stats.json', // Имя файла статистики
+            filename: './frontend/webpack-stats.json', // Имя файла статистики
         }),
     ],
     resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.jsx'], // Расширения файлов для импорта
-        alias: {
-            '@': path.resolve(__dirname, 'src'), // алиас '@' для папки 'src'
-        },
+        extensions: ['.js', '.jsx'], // Расширения файлов для импорта
     },
 };
