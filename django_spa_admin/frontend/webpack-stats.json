@@ -11,6 +11,16 @@
       "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/bundle.js",
       "publicPath": "/static/django_spa_admin/js/bundle.js"
     },
+    "main.58c78c227ee7b7554ea3.hot-update.js": {
+      "name": "main.58c78c227ee7b7554ea3.hot-update.js",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.58c78c227ee7b7554ea3.hot-update.js",
+      "publicPath": "/static/django_spa_admin/js/main.58c78c227ee7b7554ea3.hot-update.js"
+    },
+    "main.58c78c227ee7b7554ea3.hot-update.json": {
+      "name": "main.58c78c227ee7b7554ea3.hot-update.json",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.58c78c227ee7b7554ea3.hot-update.json",
+      "publicPath": "/static/django_spa_admin/js/main.58c78c227ee7b7554ea3.hot-update.json"
+    },
     "main.631eb54fcf4745aed063.hot-update.js": {
       "name": "main.631eb54fcf4745aed063.hot-update.js",
       "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.631eb54fcf4745aed063.hot-update.js",
@@ -20,12 +30,22 @@
       "name": "main.631eb54fcf4745aed063.hot-update.json",
       "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.631eb54fcf4745aed063.hot-update.json",
       "publicPath": "/static/django_spa_admin/js/main.631eb54fcf4745aed063.hot-update.json"
+    },
+    "main.cf89318fd6afbd785f59.hot-update.js": {
+      "name": "main.cf89318fd6afbd785f59.hot-update.js",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.cf89318fd6afbd785f59.hot-update.js",
+      "publicPath": "/static/django_spa_admin/js/main.cf89318fd6afbd785f59.hot-update.js"
+    },
+    "main.cf89318fd6afbd785f59.hot-update.json": {
+      "name": "main.cf89318fd6afbd785f59.hot-update.json",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.cf89318fd6afbd785f59.hot-update.json",
+      "publicPath": "/static/django_spa_admin/js/main.cf89318fd6afbd785f59.hot-update.json"
     }
   },
   "chunks": {
     "main": [
       "bundle.js",
-      "main.631eb54fcf4745aed063.hot-update.js"
+      "main.cf89318fd6afbd785f59.hot-update.js"
     ]
   },
   "publicPath": "/static/django_spa_admin/js/",
