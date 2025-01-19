@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import { Button, message } from 'antd';
-import { ModelTableLayout } from '../../layouts/ModelTableLayout';
-import { getRequest, postRequest } from '../../api';
-import { handle403Error } from '../../authService';
-import getFieldComponent from "../../components/InputField/InputField"; // Используем ранее созданный DataRow
+import { ModelTableLayout } from '@/shared/layouts/ModelTableLayout';
+import { getRequest, postRequest } from '@/shared/api/api';
+import { handle403Error } from '@/shared/api/authService';
+import getFieldComponent from "@/shared/ui/InputField/InputField"; // Используем ранее созданный DataRow
 
 
 const DataRow = ({ label, value, type, verboseName, readonly, onChange, error, allowNull, helpText }) => {

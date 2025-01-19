@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Table, Empty, Pagination } from 'antd';
-import { MainMenuLayout } from '../../layouts/MainMenuLayout';
-import { ModelsTable } from '../../components/ModelsTable/ModelsTable';
-import { getRequest } from '../../api';
-import { handle403Error } from '../../authService';
+import { MainMenuLayout } from '@/shared/layouts/MainMenuLayout';
+import { ModelsTable } from '@/shared/ui/ModelsTable/ModelsTable';
+import { getRequest } from '@/shared/api/api';
+import { handle403Error } from '@/shared/api/authService';
 
 
 export const AppModelsPage = ({ activeMenuItem, setActiveMenuItem }) => {

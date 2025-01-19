@@ -2,7 +2,7 @@ const path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
 
 module.exports = {
-    entry: './src/app/index.tsx', // Точка входа
+    entry: './src/app/index.js', // Точка входа
     mode: 'development', // Режим разработки
     devtool: 'eval-source-map', // Быстрое создание source-map для отладки
 

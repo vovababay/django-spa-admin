@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import {Table, Empty, Pagination, Button, message} from 'antd';
-import { ModelTableLayout } from '../../layouts/ModelTableLayout';
-import { handle403Error } from '../../authService';
-import {getRequest, patchRequest} from '../../api';
+import { ModelTableLayout } from '@/shared/layouts/ModelTableLayout';
+import { handle403Error } from '@/shared/api/authService';
+import {getRequest, patchRequest} from '@/shared/api/api';
 import { CheckOutlined, CloseOutlined, QuestionCircleOutlined, QuestionOutlined } from '@ant-design/icons';
-import getFieldComponent from "../../components/InputField/InputField";
-import {InlineRenderer} from "../../components/InlineRenderer";
+import getFieldComponent from "@/shared/ui/InputField/InputField";
+import {InlineRenderer} from "@/shared/ui/InlineRenderer";
 
 
 const JSONField = 'JSONField';

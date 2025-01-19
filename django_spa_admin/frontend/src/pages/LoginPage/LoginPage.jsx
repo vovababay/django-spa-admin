@@ -1,9 +1,8 @@
-// src/pages/LoginPage.js
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Form, Input, Button, Checkbox, Typography, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { postRequest } from '../../api';
+import { postRequest } from '@/shared/api/api';
 
 const { Title } = Typography;
 

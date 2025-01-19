@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { postRequest } from '../../api'; // Функция запроса POST
+import { postRequest } from '@/shared/api/api'; // Функция запроса POST
 
 export const MenuWithLogout = () => {
     const navigate = useNavigate();

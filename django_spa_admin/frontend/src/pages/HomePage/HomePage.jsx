@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { MainMenuLayout } from '../../layouts/MainMenuLayout';
+import { MainMenuLayout } from '@/shared/layouts/MainMenuLayout';
 import { Table } from 'antd';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { ModelsTable } from '../../components/ModelsTable/ModelsTable';
-import { LastUserActions } from '../../components/LastUserActions/LastUserActions';
+import { ModelsTable } from '@/shared/ui/ModelsTable/ModelsTable';
+import { LastUserActions } from '@/shared/ui/LastUserActions/LastUserActions';
 import './HomePage.css';
-import { getRequest } from '../../api';
-import { handle403Error } from '../../authService';
+import { getRequest } from '@/shared/api/api';
+import { handle403Error } from '@/shared/api/authService';
 
 
 export const HomePage = ({ activeMenuItem, setActiveMenuItem }) => {

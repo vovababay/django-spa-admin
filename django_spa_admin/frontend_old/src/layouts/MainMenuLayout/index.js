@@ -1,1 +1,0 @@
-export { MainMenuLayout } from './MainMenuLayout';

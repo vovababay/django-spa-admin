@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {Link, useNavigate, useParams, useSearchParams} from 'react-router-dom';
 import { Table, Empty, Pagination, Input, message, Select, Button, Space } from 'antd';
 import { CheckOutlined, CloseOutlined, QuestionCircleOutlined, CaretUpOutlined, CaretDownOutlined, CloseCircleOutlined, DownOutlined } from '@ant-design/icons';
-import { ModelTableLayout } from '../../layouts/ModelTableLayout';
-import { postRequest } from "../../api";
+import { ModelTableLayout } from '@/shared/layouts/ModelTableLayout';
+import { postRequest } from "@/shared/api/api";
 
 const { Search } = Input;
 

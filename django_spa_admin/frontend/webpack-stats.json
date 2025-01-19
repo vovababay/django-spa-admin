@@ -1,27 +1,34 @@
 {
   "status": "done",
   "assets": {
+    "15f2789dd231f36d43a4.svg": {
+      "name": "15f2789dd231f36d43a4.svg",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/15f2789dd231f36d43a4.svg",
+      "publicPath": "/static/django_spa_admin/js/15f2789dd231f36d43a4.svg"
+    },
     "bundle.js": {
       "name": "bundle.js",
       "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/bundle.js",
       "publicPath": "/static/django_spa_admin/js/bundle.js"
     },
-    "main.99eaf3ef18dd8f4a4ae0.hot-update.js": {
-      "name": "main.99eaf3ef18dd8f4a4ae0.hot-update.js",
-      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.99eaf3ef18dd8f4a4ae0.hot-update.js",
-      "publicPath": "/static/django_spa_admin/js/main.99eaf3ef18dd8f4a4ae0.hot-update.js"
+    "main.631eb54fcf4745aed063.hot-update.js": {
+      "name": "main.631eb54fcf4745aed063.hot-update.js",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.631eb54fcf4745aed063.hot-update.js",
+      "publicPath": "/static/django_spa_admin/js/main.631eb54fcf4745aed063.hot-update.js"
     },
-    "main.99eaf3ef18dd8f4a4ae0.hot-update.json": {
-      "name": "main.99eaf3ef18dd8f4a4ae0.hot-update.json",
-      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.99eaf3ef18dd8f4a4ae0.hot-update.json",
-      "publicPath": "/static/django_spa_admin/js/main.99eaf3ef18dd8f4a4ae0.hot-update.json"
+    "main.631eb54fcf4745aed063.hot-update.json": {
+      "name": "main.631eb54fcf4745aed063.hot-update.json",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.631eb54fcf4745aed063.hot-update.json",
+      "publicPath": "/static/django_spa_admin/js/main.631eb54fcf4745aed063.hot-update.json"
     }
   },
   "chunks": {
     "main": [
       "bundle.js",
-      "main.99eaf3ef18dd8f4a4ae0.hot-update.js"
+      "main.631eb54fcf4745aed063.hot-update.js"
     ]
   },
-  "publicPath": "/static/django_spa_admin/js/"
+  "publicPath": "/static/django_spa_admin/js/",
+  "error": "ModuleNotFoundError",
+  "message": "Module not found: Error: Can't resolve '../../api' in '/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/frontend/src/shared/ui/MenuWithLogout'"
 }

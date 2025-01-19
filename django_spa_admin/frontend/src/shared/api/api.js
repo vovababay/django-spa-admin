@@ -1,74 +1,72 @@
-// src/api.js
 import axios from 'axios';
 import { message } from 'antd';
+import { handle403Error } from './authService';
 
 // Создаем экземпляр axios с базовой настройкой
 const api = axios.create({
-    baseURL: '/django_spa/api', // Базовый URL для всех запросов
-    withCredentials: true,      // Позволяет сохранять куки для сессий
+    baseURL: '/django_spa/api',
+    withCredentials: true, // Позволяет передавать куки для сессий
 });
 
 // Получаем CSRF-токен из cookie
 const getCsrfToken = () => {
     const name = 'csrftoken=';
     const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        const c = ca[i].trim();
-        if (c.indexOf(name) === 0) {
-            return c.substring(name.length, c.length);
+    const cookies = decodedCookie.split(';');
+    for (const cookie of cookies) {
+        const c = cookie.trim();
+        if (c.startsWith(name)) {
+            return c.substring(name.length);
         }
     }
     return '';
 };
 
-// Интерцептор для обработки запроса
+// Интерцептор для добавления CSRF-токена
 api.interceptors.request.use((config) => {
     const csrfToken = getCsrfToken();
     if (csrfToken) {
-        config.headers['X-CSRFToken'] = csrfToken; // Добавляем CSRF-токен в заголовки
+        config.headers['X-CSRFToken'] = csrfToken;
     }
     return config;
 });
 
-// Интерцептор для обработки ответа
+// Интерцептор для обработки ошибок
 api.interceptors.response.use(
     (response) => response,
     (error) => {
-        if (error.response && error.response.status === 403) {
-            error.is403 = true;
+        if (error.response?.status === 403) {
+            handle403Error();
+        } else {
+            const errorMessage = error.response?.data?.detail || 'Произошла ошибка';
+            message.error(errorMessage);
         }
         return Promise.reject(error);
     }
 );
 
-// Обертка для GET-запросов
-export const getRequest = async (url, config = {}) => {
+/**
+ * Универсальная функция для запросов
+ * @param {string} method - HTTP метод (GET, POST, PATCH, DELETE, PUT)
+ * @param {string} url - URL
+ * @param {Object} data - Тело запроса (для POST, PATCH, PUT)
+ * @param {Object} config - Дополнительные настройки
+ * @returns {Promise<Object>} - Ответ от сервера
+ */
+export const request = async (method, url, data = null, config = {}) => {
     try {
-        const response = await api.get(url, config);
+        const response = await api.request({ method, url, data, ...config });
         return response.data;
     } catch (error) {
         throw error;
     }
 };
 
-// Обертка для POST-запросов
-export const postRequest = async (url, data, config = {}) => {
-    try {
-        const response = await api.post(url, data, config);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-};
-
-export const patchRequest = async (url, data, config = {}) => {
-    try {
-        const response = await api.patch(url, data, config);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-};
+// Отдельные обертки для каждого метода
+export const getRequest = (url, config = {}) => request('get', url, null, config);
+export const postRequest = (url, data, config = {}) => request('post', url, data, config);
+export const patchRequest = (url, data, config = {}) => request('patch', url, data, config);
+export const putRequest = (url, data, config = {}) => request('put', url, data, config);
+export const deleteRequest = (url, config = {}) => request('delete', url, null, config);
 
 export default api;

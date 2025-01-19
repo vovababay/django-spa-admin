@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Typography } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import { getRequest } from '../../api';
+import { getRequest } from '@/shared/api/api';
 import { PlusOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons';
 const { Text } = Typography;
 
