@@ -3,7 +3,7 @@ import '@/shared/styles/reset.css';
 import './App.css';
 
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
-import { DynamicPage } from '@/pages/DynamicPage';
+import { DynamicTable } from '@/pages/DynamicTable';
 import { ElementPage } from '@/pages/ElementPage';
 import { CreateElementPage } from '@/pages/CreateElementPage';
 import { AppModelsPage } from '@/pages/AppModelsPage';
@@ -38,7 +38,7 @@ const App = () => {
         <Route
             path="/django_spa/admin/:appLabel/:modelName/"
             element={
-                <DynamicPage
+                <DynamicTable
                     activeMenuItem={activeMenuItem}
                     setActiveMenuItem={setActiveMenuItem}
                 />

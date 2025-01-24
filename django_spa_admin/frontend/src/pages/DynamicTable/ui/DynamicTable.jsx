@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { ModelTableLayout } from '@/shared/layouts/ModelTableLayout';
 import { DataTable } from "@/entities/Table/ui/DataTable";
 
-export const DynamicPage = ({ activeMenuItem, setActiveMenuItem }) => {
+export const DynamicTable = ({ activeMenuItem, setActiveMenuItem }) => {
     const { appLabel, modelName } = useParams();
 
     useEffect(() => {
