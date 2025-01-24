@@ -146,7 +146,7 @@ export const ElementPage = ({ activeMenuItem, setActiveMenuItem }) => {
                 setErrors(errorData);
                 if (errorData.errors) {
                     errorData.errors.forEach(err => {
-                    message.error(err);
+                        message.error(err);
                     })
                 }
                 console.error('Error fetching data:', error);

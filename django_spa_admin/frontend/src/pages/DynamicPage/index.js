@@ -1,1 +1,1 @@
-export { DynamicPage } from "./DynamicPage";
+export { DynamicPage } from "./ui/DynamicPage";
