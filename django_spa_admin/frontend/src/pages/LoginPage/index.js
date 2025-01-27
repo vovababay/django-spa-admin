@@ -1,1 +1,1 @@
-import { LoginPage } from './LoginPage'
+import { LoginPage } from './ui/LoginPage'

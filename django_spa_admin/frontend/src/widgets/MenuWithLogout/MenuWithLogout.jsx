@@ -1,14 +1,14 @@
 import React from 'react';
 import { Menu, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { postRequest } from '@/shared/api/api'; // Функция запроса POST
+import { POST } from '@/shared/api/api'; // Функция запроса POST
 
 export const MenuWithLogout = () => {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
         try {
-            await postRequest('/logout/');
+            await POST('/logout/');
             navigate('/django_spa/admin/login/', { replace: true });
         } catch (error) {
             console.error("Ошибка при выходе:", error);

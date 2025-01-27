@@ -8,7 +8,7 @@ import { ElementPage } from '@/pages/ElementPage';
 import { CreateElementPage } from '@/pages/CreateElementPage';
 import { AppModelsPage } from '@/pages/AppModelsPage';
 import { HomePage } from '@/pages/HomePage';
-import { LoginPage } from '@/pages/LoginPage/LoginPage';
+import { LoginPage } from '@/pages/LoginPage/ui/LoginPage';
 import { hot } from 'react-hot-loader/root';
 
 

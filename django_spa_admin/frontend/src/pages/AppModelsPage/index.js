@@ -1,1 +1,1 @@
-export { AppModelsPage } from "./AppModelsPage";
+export { AppModelsPage } from "./ui/AppModelsPage/AppModelsPage";

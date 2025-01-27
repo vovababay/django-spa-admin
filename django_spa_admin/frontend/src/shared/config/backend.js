@@ -1,0 +1,1 @@
+export const baseURL = '/django_spa/api';

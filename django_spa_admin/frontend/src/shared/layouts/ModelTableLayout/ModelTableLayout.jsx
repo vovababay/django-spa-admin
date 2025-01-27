@@ -1,21 +1,12 @@
-import { Link, BrowserRouter as Router, Routes, Route, useNavigate, useParams, Navigate } from 'react-router-dom';
+import { Link, useNavigate, useParams, Navigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import {
-  AppstoreOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  ShopOutlined,
-  TeamOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons';
-import { LeftMenu } from '@/shared/ui/LeftMenu';
-import { MenuWithLogout } from '@/shared/ui/MenuWithLogout/MenuWithLogout';
+import { Breadcrumb, Layout, theme } from 'antd';
+import { LeftMenu } from '@/widgets/LeftMenu/ui';
+import { MenuWithLogout } from '@/widgets/MenuWithLogout/MenuWithLogout';
 // import { handle403Error } from '../authService';
-import { getRequest } from '@/shared/api/api';
+import { GET } from '@/shared/api/api';
 import { handle403Error } from '@/shared/api/authService';
+import {API_ROUTES} from "@/shared/config";
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -53,7 +44,7 @@ export const ModelTableLayout = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getRequest('/side_bar/');
+        const data = await GET(API_ROUTES.SIDE_BAR);
         const formattedItems = Object.entries(data).map(([key, value]) => ({
           key: key,
           label: value.verbose_name,

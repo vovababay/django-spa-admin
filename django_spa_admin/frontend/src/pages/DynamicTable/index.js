@@ -1,1 +1,1 @@
-export { DynamicTable } from "./ui/DynamicTable";
+export { DynamicTable } from "./ui/DynamicTable/DynamicTable";

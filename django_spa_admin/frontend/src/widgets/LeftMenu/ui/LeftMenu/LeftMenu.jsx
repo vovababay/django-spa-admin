@@ -2,26 +2,27 @@ import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { Menu, Button } from 'antd';
 import {PlusOutlined} from "@ant-design/icons";
+import {ROUTES} from "@/shared/config";
 
-const getLevelKeys = (headerMenu) => {
-  const key = {};
-  const func = (items2, level = 1) => {
-    items2.forEach((item) => {
-      if (item.key) {
-        key[item.key] = level;
-      }
-      if (item.children) {
-        func(item.children, level + 1);
-      }
-    });
-  };
-  func(headerMenu);
-  return key;
-};
+// const getLevelKeys = (headerMenu) => {
+//   const key = {};
+//   const func = (items2, level = 1) => {
+//     items2.forEach((item) => {
+//       if (item.key) {
+//         key[item.key] = level;
+//       }
+//       if (item.children) {
+//         func(item.children, level + 1);
+//       }
+//     });
+//   };
+//   func(headerMenu);
+//   return key;
+// };
 
 export const LeftMenu = ({ items2, onenedAppLabel, openedModelName }) => {
   const navigate = useNavigate();
-  const levelKeys = getLevelKeys(items2);
+  // const levelKeys = getLevelKeys(items2);
 
   const [openKeys, setOpenKeys] = useState([onenedAppLabel]);
   const [selectedKeys, setSelectedKeys] = useState([openedModelName]);
@@ -41,14 +42,10 @@ export const LeftMenu = ({ items2, onenedAppLabel, openedModelName }) => {
       const url = `/django_spa/admin/${clickedItem.appLabel}/${clickedItem.modelName}/`;
       navigate(url);
     }
-
     setSelectedKeys([key]); // Обновляем выбранный пункт меню
   };
 
-  const addObjHandle = (appLabel, modelName) => {
-    const url = `/django_spa/admin/${appLabel}/${modelName}/add/`;
-    navigate(url);
-  };
+
 
   const renderMenuItem = (item) => (
       <Menu.Item key={item.key}>
@@ -59,8 +56,8 @@ export const LeftMenu = ({ items2, onenedAppLabel, openedModelName }) => {
               size="small"
               style={{ marginLeft: 'auto' }} // Прижать кнопку к правому краю
               onClick={(e) => {
-                e.stopPropagation(); // Чтобы клик по кнопке не вызывал handleMenuClick
-                addObjHandle(item.appLabel, item.modelName);
+                e.stopPropagation();
+                navigate(ROUTES.ADD_OBJECT(item.appLabel, item.modelName));
               }}
           />
         </div>

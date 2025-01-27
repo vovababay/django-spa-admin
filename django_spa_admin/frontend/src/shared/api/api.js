@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { message } from 'antd';
 import { handle403Error } from './authService';
+import {baseURL} from "@/shared/config";
 
 // Создаем экземпляр axios с базовой настройкой
 const api = axios.create({
-    baseURL: '/django_spa/api',
+    baseURL: baseURL,
     withCredentials: true, // Позволяет передавать куки для сессий
 });
 
@@ -63,10 +64,10 @@ export const request = async (method, url, data = null, config = {}) => {
 };
 
 // Отдельные обертки для каждого метода
-export const getRequest = (url, config = {}) => request('get', url, null, config);
-export const postRequest = (url, data, config = {}) => request('post', url, data, config);
-export const patchRequest = (url, data, config = {}) => request('patch', url, data, config);
-export const putRequest = (url, data, config = {}) => request('put', url, data, config);
-export const deleteRequest = (url, config = {}) => request('delete', url, null, config);
+export const GET = (url, config = {}) => request('get', url, null, config);
+export const POST = (url, data, config = {}) => request('post', url, data, config);
+export const PATCH = (url, data, config = {}) => request('patch', url, data, config);
+export const PUT = (url, data, config = {}) => request('put', url, data, config);
+export const DELETE = (url, config = {}) => request('delete', url, null, config);
 
 export default api;

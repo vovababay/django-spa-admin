@@ -3,10 +3,14 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import {Table, Empty, Pagination, Button, message} from 'antd';
 import { ModelTableLayout } from '@/shared/layouts/ModelTableLayout';
 import { handle403Error } from '@/shared/api/authService';
-import {getRequest, patchRequest} from '@/shared/api/api';
+import {GET, PATCH} from '@/shared/api';
 import { CheckOutlined, CloseOutlined, QuestionCircleOutlined, QuestionOutlined } from '@ant-design/icons';
 import getFieldComponent from "@/shared/ui/InputField/InputField";
 import {InlineRenderer} from "@/shared/ui/InlineRenderer";
+import DataRow from "@/shared/ui/DataRow/ui/DataRow";
+import {DataDisplay} from "@/pages/ElementPage/ui/DataDisplay/DataDisplay";
+import {getObject} from "@/pages/ElementPage/api/getObject";
+import {API_ROUTES} from "@/shared/config";
 
 
 const JSONField = 'JSONField';
@@ -28,77 +32,9 @@ function getVisibilityValue(value, type) {
     }
 };
 
-const DataRow = ({ label, value, type, verboseName, readonly, onChange, error, allowNull, helpText }) => {
-    const fieldProps = {
-        value,
-        allowNull: allowNull,
-    };
-
-    return (
-        <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '20px' }}>
-            {/* Левая колонка с названием поля */}
-            <div style={{ width: '25%', paddingRight: '20px', fontWeight: 'bold' }}>
-                {verboseName || label}:
-            </div>
-
-            {/* Правая колонка с полем ввода и текстом */}
-            <div style={{ width: '70%' }}>
-                <div>
-                    {getFieldComponent({
-                        fieldType: type,
-                        fieldLabel: label,
-                        fieldProps,
-                        readonly,
-                        onChange,
-                        allowNull,
-                    })}
-                </div>
-
-                {/* Текст-подсказка под полем */}
-                {helpText && (
-                    <div style={{ color: 'gray', marginTop: '5px', fontSize: '12px' }}>
-                        {helpText}
-                    </div>
-                )}
-
-                {/* Ошибки */}
-                {error && (
-                    <div style={{ color: 'red', marginTop: '5px', fontSize: '14px' }}>
-                        {error.map((err, index) => (
-                            <div key={index}>{err}</div>
-                        ))}
-                    </div>
-                )}
-            </div>
-        </div>
-    );
-};
 
 
 
-const DataDisplay = ({ data, onChange, errors }) => {
-    return (
-        <div style={{ padding: '20px', fontSize: 18 }}>
-            {Object.entries(data)
-                .filter(([key, details]) => details.is_primary_key === false)
-                .map(([key, details]) => (
-                    <DataRow
-                        key={key}
-                        label={key}
-                        value={details.value}
-                        type={details.type}
-                        verboseName={details.verbose_name}
-                        readonly={details.readonly}
-                        onChange={onChange}
-                        error={errors[key]}
-                        allowNull={details.null}
-                        helpText={details.help_text}
-                    />
-                ))}
-            {data.inlines && <InlineRenderer inlines={data.inlines} />}
-        </div>
-    );
-};
 
 
 
@@ -111,25 +47,11 @@ export const ElementPage = ({ activeMenuItem, setActiveMenuItem }) => {
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 
-    const fetchData = async () => {
-        setLoading(true);
-        try {
-            const dataResult = await getRequest(`/${appLabel}/${modelName}/${pk}/`);
-            setData(dataResult || {});
-        } catch (error) {
-            if (error.is403) {
-                handle403Error(navigate);
-            } else {
-                console.error('Error fetching data:', error);
-            }
-        } finally {
-            setLoading(false);
-        }
-    };
+
     const fetchEditedData = async ({url}) => {
         setSendLoading(true);
         try {
-            const dataResult = await patchRequest(`/${appLabel}/${modelName}/${pk}/`, dataToSend);
+            const dataResult = await PATCH(API_ROUTES.FETCH_OBJECT(appLabel, modelName, pk), dataToSend);
             console.log(url);
             if (url != null) {
                 navigate(url);
@@ -158,11 +80,23 @@ export const ElementPage = ({ activeMenuItem, setActiveMenuItem }) => {
 
 
     useEffect(() => {
-        fetchData()
+        getObject(appLabel, modelName, pk)
+            .then(responseData => {
+                setData(responseData || {});
+            })
+            .catch(error =>{
+                if (error.is403) {
+                    handle403Error(navigate);
+                } else {
+                    console.error('Error fetching data:', error);
+                }
+            })
+            .finally( () => setLoading(false))
         if (appLabel && modelName) {
             setActiveMenuItem({ "appLabel": appLabel, "modelName": modelName });
         }
     }, [appLabel, modelName, pk, setActiveMenuItem]);
+
 
     const changeField = (fieldLabel, event) => {
         setData((prevData) => {
@@ -176,7 +110,6 @@ export const ElementPage = ({ activeMenuItem, setActiveMenuItem }) => {
                 [fieldLabel]: { ...prevData[fieldLabel], value: newValue }
             };
         });
-        console.log('changeField', fieldLabel, event);
         setDataToSend((prevData) => ({
             ...prevData,
             [fieldLabel]: event
@@ -186,6 +119,15 @@ export const ElementPage = ({ activeMenuItem, setActiveMenuItem }) => {
     if (!appLabel || !modelName) {
         return <div>Error: No appLabel or modelName provided.</div>;
     }
+
+    if (loading) {
+        return (
+                <ModelTableLayout>
+                    <div>Loading...</div>
+                </ ModelTableLayout>
+        );
+    }
+
     return (
         <ModelTableLayout>
             <DataDisplay data={data} onChange={changeField} errors={errors}/>

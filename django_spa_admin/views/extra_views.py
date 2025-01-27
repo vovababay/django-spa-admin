@@ -3,7 +3,7 @@ import traceback
 from django.contrib import admin
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models.query import Q
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.views import APIView

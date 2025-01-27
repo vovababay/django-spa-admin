@@ -11,7 +11,7 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { MenuWithLogout } from '@/shared/ui/MenuWithLogout/MenuWithLogout';
+import { MenuWithLogout } from '@/widgets/MenuWithLogout/MenuWithLogout';
 
 
 const { Header, Content, Footer, Sider } = Layout;

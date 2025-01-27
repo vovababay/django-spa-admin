@@ -1,1 +1,1 @@
-export { CreateElementPage } from "./CreateElementPage";
+export { CreateElementPage } from "./ui/CreateElementPage/CreateElementPage";
