@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams, Navigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { Breadcrumb, Layout, theme } from 'antd';
-import { LeftMenu } from '@/widgets/LeftMenu/ui';
+import { SidebarMenu } from '@/widgets/SidebarMenu';
 import { MenuWithLogout } from '@/widgets/MenuWithLogout/MenuWithLogout';
 // import { handle403Error } from '../authService';
 import { GET } from '@/shared/api/api';
@@ -90,7 +90,7 @@ export const ModelTableLayout = ({ children }) => {
           />
           <Layout style={{ padding: '24px 0', background: colorBgContainer, borderRadius: borderRadiusLG, flexGrow: 1}}>
             <Sider style={{ background: colorBgContainer }} width={300}>
-                <LeftMenu items2={items2} onenedAppLabel={activeMenuItem.appLabel} openedModelName={activeMenuItem.modelName}/>
+                <SidebarMenu items2={items2} onenedAppLabel={activeMenuItem.appLabel} openedModelName={activeMenuItem.modelName}/>
             </Sider>
             <Content style={{ padding: '0 24px', flexGrow: 1 }}>
               {children}

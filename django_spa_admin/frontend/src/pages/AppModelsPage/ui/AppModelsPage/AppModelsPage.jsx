@@ -27,7 +27,6 @@ export const AppModelsPage = ({ activeMenuItem, setActiveMenuItem }) => {
         return <div>Error: No appLabel provided.</div>;
     }
     return (
-
         <MainMenuLayout activeMenuItem={activeMenuItem} modelsByApp={modelsByApp}>
             <ModelsTable modelsByApp={modelsByApp} loading={loading} appVerboseName={appVerboseName}/>
         </MainMenuLayout>

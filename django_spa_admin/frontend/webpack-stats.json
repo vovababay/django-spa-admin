@@ -10,11 +10,92 @@
       "name": "bundle.js",
       "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/bundle.js",
       "publicPath": "/static/django_spa_admin/js/bundle.js"
+    },
+    "main.11b8d3094399639d095a.hot-update.js": {
+      "name": "main.11b8d3094399639d095a.hot-update.js",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.11b8d3094399639d095a.hot-update.js",
+      "publicPath": "/static/django_spa_admin/js/main.11b8d3094399639d095a.hot-update.js"
+    },
+    "main.11b8d3094399639d095a.hot-update.json": {
+      "name": "main.11b8d3094399639d095a.hot-update.json",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.11b8d3094399639d095a.hot-update.json",
+      "publicPath": "/static/django_spa_admin/js/main.11b8d3094399639d095a.hot-update.json"
+    },
+    "main.3e35d2b1e0ecee7fe9e9.hot-update.js": {
+      "name": "main.3e35d2b1e0ecee7fe9e9.hot-update.js",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.3e35d2b1e0ecee7fe9e9.hot-update.js",
+      "publicPath": "/static/django_spa_admin/js/main.3e35d2b1e0ecee7fe9e9.hot-update.js"
+    },
+    "main.3e35d2b1e0ecee7fe9e9.hot-update.json": {
+      "name": "main.3e35d2b1e0ecee7fe9e9.hot-update.json",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.3e35d2b1e0ecee7fe9e9.hot-update.json",
+      "publicPath": "/static/django_spa_admin/js/main.3e35d2b1e0ecee7fe9e9.hot-update.json"
+    },
+    "main.3e39e44110d21ab83f49.hot-update.js": {
+      "name": "main.3e39e44110d21ab83f49.hot-update.js",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.3e39e44110d21ab83f49.hot-update.js",
+      "publicPath": "/static/django_spa_admin/js/main.3e39e44110d21ab83f49.hot-update.js"
+    },
+    "main.3e39e44110d21ab83f49.hot-update.json": {
+      "name": "main.3e39e44110d21ab83f49.hot-update.json",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.3e39e44110d21ab83f49.hot-update.json",
+      "publicPath": "/static/django_spa_admin/js/main.3e39e44110d21ab83f49.hot-update.json"
+    },
+    "main.a5236197d837fa469eb1.hot-update.js": {
+      "name": "main.a5236197d837fa469eb1.hot-update.js",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.a5236197d837fa469eb1.hot-update.js",
+      "publicPath": "/static/django_spa_admin/js/main.a5236197d837fa469eb1.hot-update.js"
+    },
+    "main.a5236197d837fa469eb1.hot-update.json": {
+      "name": "main.a5236197d837fa469eb1.hot-update.json",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.a5236197d837fa469eb1.hot-update.json",
+      "publicPath": "/static/django_spa_admin/js/main.a5236197d837fa469eb1.hot-update.json"
+    },
+    "main.cc11f9b5f99c5a4ff30b.hot-update.js": {
+      "name": "main.cc11f9b5f99c5a4ff30b.hot-update.js",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.cc11f9b5f99c5a4ff30b.hot-update.js",
+      "publicPath": "/static/django_spa_admin/js/main.cc11f9b5f99c5a4ff30b.hot-update.js"
+    },
+    "main.cc11f9b5f99c5a4ff30b.hot-update.json": {
+      "name": "main.cc11f9b5f99c5a4ff30b.hot-update.json",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.cc11f9b5f99c5a4ff30b.hot-update.json",
+      "publicPath": "/static/django_spa_admin/js/main.cc11f9b5f99c5a4ff30b.hot-update.json"
+    },
+    "main.d78827d9bf5166021ebe.hot-update.js": {
+      "name": "main.d78827d9bf5166021ebe.hot-update.js",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.d78827d9bf5166021ebe.hot-update.js",
+      "publicPath": "/static/django_spa_admin/js/main.d78827d9bf5166021ebe.hot-update.js"
+    },
+    "main.d78827d9bf5166021ebe.hot-update.json": {
+      "name": "main.d78827d9bf5166021ebe.hot-update.json",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.d78827d9bf5166021ebe.hot-update.json",
+      "publicPath": "/static/django_spa_admin/js/main.d78827d9bf5166021ebe.hot-update.json"
+    },
+    "main.e3c8b8231eff06216c04.hot-update.js": {
+      "name": "main.e3c8b8231eff06216c04.hot-update.js",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.e3c8b8231eff06216c04.hot-update.js",
+      "publicPath": "/static/django_spa_admin/js/main.e3c8b8231eff06216c04.hot-update.js"
+    },
+    "main.e3c8b8231eff06216c04.hot-update.json": {
+      "name": "main.e3c8b8231eff06216c04.hot-update.json",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.e3c8b8231eff06216c04.hot-update.json",
+      "publicPath": "/static/django_spa_admin/js/main.e3c8b8231eff06216c04.hot-update.json"
+    },
+    "main.ff161574b7dd41c55d18.hot-update.js": {
+      "name": "main.ff161574b7dd41c55d18.hot-update.js",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.ff161574b7dd41c55d18.hot-update.js",
+      "publicPath": "/static/django_spa_admin/js/main.ff161574b7dd41c55d18.hot-update.js"
+    },
+    "main.ff161574b7dd41c55d18.hot-update.json": {
+      "name": "main.ff161574b7dd41c55d18.hot-update.json",
+      "path": "/Users/vladimir/Desktop/django-spa-admin/django_spa_admin/static/django_spa_admin/js/main.ff161574b7dd41c55d18.hot-update.json",
+      "publicPath": "/static/django_spa_admin/js/main.ff161574b7dd41c55d18.hot-update.json"
     }
   },
   "chunks": {
     "main": [
-      "bundle.js"
+      "bundle.js",
+      "main.a5236197d837fa469eb1.hot-update.js"
     ]
   },
   "publicPath": "/static/django_spa_admin/js/"

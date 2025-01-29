@@ -5,7 +5,7 @@ import { useTableData } from '@/entities/Table/model/hooks/useTableData';
 // import { fetchAction, fetchData, fetchFields } from '@/entities/Table/model/api';
 import { transformFieldsToColumns } from './Columns';
 import { AddObjectButton } from '@/features/AddObject/ui/AddObjectButton';
-import { ActionsDropdown } from '@/features/ActionsDropdown/ui/ActionsDropdown';
+import { BulkActionsDropdown } from '@/features/BulkActionsDropdown/ui/BulkActionsDropdown';
 import {fetchData} from "@/entities/Table/api/fetchData";
 import {fetchAction} from "@/entities/Table/api/fetchAction";
 import {fetchFields} from "@/entities/Table/api/fetchFields";
@@ -62,17 +62,6 @@ export const DataTable = ({ appLabel, modelName }) => {
     };
 
     useEffect(() => {
-        // fetchData(appLabel, modelName, currentPage, pageSize, searchQuery, sortOrder).then((data) => {
-        //     setData(data.objects || []);
-        //     setTotal(data.meta.objects_count);
-        //     setLoading(false);
-        // });
-        // fetchFields(appLabel, modelName).then((data) => {
-            // setFields(data.list_display || []);
-            // setListDisplayLinks(data.list_display_links || [data.list_display[0]]);
-            // setViewSearch(data.exists_search);
-            // setDropdownItems(data.actions);
-        // });
         setCurrentPage(1);
         setSearchQuery('');
 
@@ -124,7 +113,7 @@ export const DataTable = ({ appLabel, modelName }) => {
                     <AddObjectButton appLabel={appLabel} modelName={modelName} />
                 </div>
             )}
-            <ActionsDropdown
+            <BulkActionsDropdown
                 actions={dropdownItems}
                 onActionChange={setSelectedAction}
                 onExecute={handleExecute}

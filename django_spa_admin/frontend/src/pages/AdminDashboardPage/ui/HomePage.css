@@ -1,0 +1,21 @@
+.app-row {
+    background-color: #417690;
+    font-weight: bold;
+    color:#fff;
+    height: 30px;
+    max-height: 30px;
+  }
+
+.app-row-hover {
+    background-color: #366278;
+    font-weight: bold;
+    color:#fff;
+    height: 20px;
+    max-height: 30px;
+}
+
+/* Убираем стиль при наведении на строку таблицы */
+.ant-table-tbody > tr:hover > td {
+    background-color: unset !important;
+  }
+  

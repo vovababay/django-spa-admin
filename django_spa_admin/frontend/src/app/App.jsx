@@ -3,13 +3,13 @@ import '@/shared/styles/reset.css';
 import './App.css';
 
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
-import { DynamicTable } from '@/pages/DynamicTable';
-import { ElementPage } from '@/pages/ElementPage';
-import { CreateElementPage } from '@/pages/CreateElementPage';
+import { ModelCreatePage } from '@/pages/ModelCreatePage';
 import { AppModelsPage } from '@/pages/AppModelsPage';
-import { HomePage } from '@/pages/HomePage';
+import { AdminDashboardPage } from '@/pages/AdminDashboardPage';
 import { LoginPage } from '@/pages/LoginPage/ui/LoginPage';
 import { hot } from 'react-hot-loader/root';
+import {ModelListPage} from "@/pages/ModelListPage";
+import {ModelDetailPage} from "@/pages/ModelDetailPage";
 
 
 const App = () => {
@@ -24,9 +24,7 @@ const App = () => {
       <Routes>
         <Route
             path="/django_spa/admin/"
-            element={
-                <HomePage/>
-                }
+            element={<AdminDashboardPage/>}
         />
         <Route
             path="/django_spa/admin/login/"
@@ -38,7 +36,7 @@ const App = () => {
         <Route
             path="/django_spa/admin/:appLabel/:modelName/"
             element={
-                <DynamicTable
+                <ModelListPage
                     activeMenuItem={activeMenuItem}
                     setActiveMenuItem={setActiveMenuItem}
                 />
@@ -51,7 +49,7 @@ const App = () => {
           <Route
               path="/django_spa/admin/:appLabel/:modelName/add/"
               element={
-              <CreateElementPage
+              <ModelCreatePage
                   activeMenuItem={activeMenuItem}
                   setActiveMenuItem={setActiveMenuItem}
               />
@@ -60,7 +58,7 @@ const App = () => {
           <Route
             path="/django_spa/admin/:appLabel/:modelName/:pk/change/"
             element={
-                <ElementPage
+                <ModelDetailPage
                     activeMenuItem={activeMenuItem}
                     setActiveMenuItem={setActiveMenuItem}
                 />

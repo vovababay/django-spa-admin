@@ -36,6 +36,7 @@ module.exports = {
             publicPath: '/static/django_spa_admin/js/',
             writeToDisk: true,
         },
+        compress: true,
         hot: true,
         headers: { 'Access-Control-Allow-Origin': '*' },
         historyApiFallback: true,
