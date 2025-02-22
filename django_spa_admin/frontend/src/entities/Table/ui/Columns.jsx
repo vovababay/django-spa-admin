@@ -9,17 +9,6 @@ import {
   QuestionCircleOutlined,
 } from "@ant-design/icons";
 
-/**
- * Трансформирует поля в колонки таблицы.
- *
- * @param {Array} fields - Поля таблицы, полученные с сервера.
- * @param {Array} listDisplayLinks - Поля, которые будут ссылками.
- * @param {Array} sortOrder - Текущий порядок сортировки.
- * @param {Function} setSortOrder - Функция для изменения сортировки.
- * @param {String} appLabel - Название приложения.
- * @param {String} modelName - Название модели.
- * @returns {Array} Массив колонок для таблицы.
- */
 export const transformFieldsToColumns = (
   fields,
   listDisplayLinks,

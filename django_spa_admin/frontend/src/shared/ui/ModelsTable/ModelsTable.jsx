@@ -4,7 +4,6 @@ import {Link, useNavigate} from 'react-router-dom';
 import {PlusOutlined} from "@ant-design/icons";
 
 
-
 export const ModelsTable = ({modelsByApp, loading, appVerboseName}) => {
     const navigate = useNavigate();
     var title = 'Администрирование сайта';
@@ -92,7 +91,7 @@ export const ModelsTable = ({modelsByApp, loading, appVerboseName}) => {
                 loading={loading}
                 dataSource={transformData(modelsByApp)}
                 pagination={false}
-                rowClassName={(record) => (record.type === 'app' ? 'app-row' : '')} // Классы для стилизации
+                rowClassName={(record) => (record.type === 'app' ? 'app-row' : '')}
                 rowKey="key"
             />
         </div>

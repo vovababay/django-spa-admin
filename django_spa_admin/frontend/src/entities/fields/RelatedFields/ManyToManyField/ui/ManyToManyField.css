@@ -1,0 +1,11 @@
+.custom-transfer .ant-transfer-list-content-item {
+  font-size: 14px;
+}
+
+.custom-transfer .ant-transfer-list-header {
+  font-size: 14px;
+}
+
+.custom-transfer .ant-transfer-list-header-dropdown {
+  display: none;
+}

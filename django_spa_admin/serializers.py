@@ -1,7 +1,9 @@
+from django.conf import settings
 from django.contrib import admin
 from django.db.models import ManyToManyField
+from django.db.models.fields import NOT_PROVIDED
 from rest_framework import serializers
-
+from django.contrib.auth import get_user_model
 
 
 class DynamicModelListSerializer(serializers.ModelSerializer):
@@ -77,9 +79,20 @@ class DynamicModelRetrieveSerializer(serializers.ModelSerializer):
         ]
         return data
 
+    def serialize_default(self, default):
+        if default == NOT_PROVIDED:
+            return None
+        if callable(default):  # Проверяем, является ли значение функцией
+            return str(default)  # Преобразуем функцию в строку
+        return default  # Возвращаем значение, если это не функция
+
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         formatted_data = {}
+
+        user_model = get_user_model()
+        formatted_data['is_user_model'] = True if self.Meta.model == user_model else False
+
         for field_name, value in representation.items():
             field = self.Meta.model._meta.get_field(field_name)
             type_field = field.get_internal_type()
@@ -91,13 +104,16 @@ class DynamicModelRetrieveSerializer(serializers.ModelSerializer):
                 'readonly': True if field.name in self.admin_class.readonly_fields else False,
                 'null': field.null,
                 'blank': field.blank,
-                'help_text': field.help_text
+                'help_text': field.help_text,
+                'default': self.serialize_default(field.default)
             }
+
             if isinstance(field, ManyToManyField):
                 formatted_data[field_name]['value'] = self.get_m2m_values(
                     field.related_model.objects.filter(id__in=value))
                 formatted_data[field_name]['available'] = self.get_m2m_values(
                     field.related_model.objects.all().exclude(id__in=value))
+
         formatted_data['inlines'] = self.get_inlines(instance=instance)
         return formatted_data
 

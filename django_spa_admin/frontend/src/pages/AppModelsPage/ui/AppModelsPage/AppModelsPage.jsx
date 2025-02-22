@@ -4,7 +4,6 @@ import { ModelsTable } from '@/shared/ui/ModelsTable/ModelsTable';
 import {fetchData} from "@/pages/AppModelsPage/api/fetchData";
 import {MainMenuLayout} from "@/shared/layouts/MainMenuLayout";
 
-
 export const AppModelsPage = ({ activeMenuItem, setActiveMenuItem }) => {
     const { appLabel, modelName } = useParams();
     const [modelsByApp, SetModelsByApp] = useState([]);

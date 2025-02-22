@@ -2,7 +2,7 @@ import getFieldComponent from "@/shared/ui/InputField/InputField";
 import React from "react";
 
 
-const DataRow = ({ label, value, type, verboseName, readonly, onChange, error, allowNull, helpText }) => {
+const DataRow = ({ label, value, type, verboseName, readonly, onChange, error, allowNull, helpText, details }) => {
     const fieldProps = {
         value,
         allowNull: allowNull,
@@ -25,6 +25,7 @@ const DataRow = ({ label, value, type, verboseName, readonly, onChange, error, a
                         readonly,
                         onChange,
                         allowNull,
+                        details,
                     })}
                 </div>
 

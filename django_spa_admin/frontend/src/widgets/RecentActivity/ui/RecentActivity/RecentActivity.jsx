@@ -41,15 +41,16 @@ const renderObjectLink = (record) => {
 
 const columns = [
   {
-    title: 'Последние действия',
-    dataIndex: 'action',
-    key: 'action',
-    render: (text, record) => (
-      <>
-        {renderActionFlagIcon(record.action_flag)}
-        {renderObjectLink(record)}
-      </>
-    ),
+      title: 'Последние действия',
+      dataIndex: 'action',
+      key: 'action',
+      ellipsis: true,
+      render: (text, record) => (
+          <>
+              {renderActionFlagIcon(record.action_flag)}
+              {renderObjectLink(record)}
+          </>
+      ),
   },
 ];
 
@@ -69,14 +70,14 @@ export const RecentActivity = () => {
             .finally(()=> setLoading(false))
     }, []);
     return (
-        <div style={{marginLeft: 50}}>
+        <div style={{marginLeft: 50, width: 300}}>
             <Table
                 columns={columns}
                 loading={loading}
                 dataSource={data.map((item, index) => ({ ...item, key: index }))}
                 pagination={false}
                 showHeader={true}
-                style={{ borderRadius: 8 }}
+                style={{ borderRadius: 8}}
             />
         </div>
     )

@@ -25,7 +25,7 @@ from django_spa_admin.registred_models import converted_dict, app_verbose_names
 
 from django import forms
 
-from django_spa_admin.utils import to_bool, get_model_data, sort_fields_by_order
+from django_spa_admin.utils import to_bool, get_model_data, sort_fields_by_order, get_change_message, get_state_object
 
 
 class ModelViewSet(ViewSet):
@@ -117,18 +117,18 @@ class ModelViewSet(ViewSet):
         pk = kwargs.get('pk')
         model_class, admin_class = get_model_data(**kwargs)
         try:
-            queryset = model_class.objects.get(pk=pk)
+            obj = model_class.objects.get(pk=pk)
         except model_class.DoesNotExist:
             return Response(data={'error': ['object does not exist']}, status=status.HTTP_400_BAD_REQUEST)
-        serializer = DynamicModelRetrieveSerializer(queryset, data=request.data, partial=True,
+        old_data = get_state_object(obj)
+        serializer = DynamicModelRetrieveSerializer(obj, data=request.data, partial=True,
                                                     model_class=model_class, admin_class=admin_class)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
         serialized_data = serializer.data
         content_type = ContentType.objects.get_for_model(model_class)
         # TODO: edit change_message, add changed fields
-        change_message = 'Изменено'
-
+        change_message = get_change_message(obj, old_data)
         LogEntry.objects.create(user=request.user, content_type=content_type, object_id=serializer.instance.id,
                                 action_flag=CHANGE, change_message=change_message,
                                 object_repr=serializer.instance.__str__())

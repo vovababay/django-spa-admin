@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Input, InputNumber, Checkbox, DatePicker, Select } from 'antd';
 import dayjs from 'dayjs';
 
@@ -7,6 +7,8 @@ const { Option } = Select;
 // import 'jsoneditor-react/es/index.css'; // импортируем стили для редактора
 import { JsonEditor } from "jsoneditor-react";
 import 'jsoneditor-react/es/editor.min.css';
+import {ManyToManyField} from "@/entities/fields/RelatedFields/ManyToManyField/ui/ManyToManyField";
+
 
 const BooleanSelect = ({ fieldLabel, fieldProps, baseProps, onChange, allowNull }) => (
     <Select
@@ -30,10 +32,12 @@ const getFieldComponent = ({
                                fieldLabel,
                                fieldProps = {},
                                readonly = false,
-                               onChange
+                               onChange,
+                                details
                            }) => {
     const baseProps = {
         ...fieldProps,
+        details: details,
         disabled: readonly,
         onChange: (e) => {
             onChange(fieldLabel, e?.target?.value);
@@ -119,15 +123,7 @@ const getFieldComponent = ({
 
         case 'JSONField':
             return (
-                <div style={{ width: '100%' }}>
-                    <JsonEditor
-                        value={fieldProps.value || {}}
-                        onChange={newValue => onChange(fieldLabel, newValue)}
-                        basePops
-                        mode="tree"
-                        theme="monokai"
-                    />
-                </div>
+                <></>
             );
 
         // Поля с массивами
@@ -144,7 +140,8 @@ const getFieldComponent = ({
                     }}
                 />
             );
-
+        case 'ManyToManyField':
+            return <ManyToManyField {...baseProps}/>
         default:
             return <Input {...baseProps} />;
     }

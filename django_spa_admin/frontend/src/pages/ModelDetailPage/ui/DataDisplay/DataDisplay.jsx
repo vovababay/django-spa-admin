@@ -22,6 +22,7 @@ export const DataDisplay = ({ data, onChange, errors }) => {
                         error={errors[key]}
                         allowNull={details.null}
                         helpText={details.help_text}
+                        details={details}
                     />
                 ))}
             {data.inlines && <InlineRenderer inlines={data.inlines} />}

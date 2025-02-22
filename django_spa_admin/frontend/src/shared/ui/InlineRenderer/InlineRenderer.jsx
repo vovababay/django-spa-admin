@@ -34,27 +34,13 @@ const TabularInline = ({ data }) => {
 };
 
 // Main InlineRenderer Component
-export const InlineRenderer = ({ inlines }) => {
-    console.log(inlines);
-    // const data = Object.entries(inlines.objects)
-    //     .filter(([key, details]) => details.is_primary_key === false)
-    //     .map(([key, details]) => (
-    //         <DataRow
-    //             key={key}
-    //             label={key}
-    //             value={details.value}
-    //             type={details.type}
-    //             verboseName={details.verbose_name}
-    //             readonly={details.readonly}
-    //             onChange={onChange}
-    //             error={errors[key]}
-    //             allowNull={details.null}
-    //             helpText={details.help_text}
-    //         />
-    //     ))
+export const InlineRenderer = ({ items }) => {
+    if (items.length === 0){
+        return <></>
+    }
     return (
         <Collapse defaultActiveKey={['0']}>
-            {inlines.map((inline, index) => (
+            {items.map((inline, index) => (
                 <Collapse.Panel header={inline.verbose_name_plural} key={index}>
                     {inline.type === 'StackedInline' ? (
                         <StackedInline data={inline.objects} />

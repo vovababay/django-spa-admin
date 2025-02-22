@@ -13,7 +13,7 @@ const { Header, Content, Footer, Sider } = Layout;
 
 
 
-export const ModelTableLayout = ({ children }) => {
+export const ModelTableLayout = ({ children, obj }) => {
   const { token: { colorBgContainer, borderRadiusLG } } = theme.useToken();
   const { appLabel, modelName, pk } = useParams();
     const [items2, setItems] = useState([]);
@@ -38,7 +38,7 @@ export const ModelTableLayout = ({ children }) => {
     if (modelItem) {
       items.push({ title: <Link to={`/django_spa/admin/${appItem.key}/${modelItem.key}/`} style={{ cursor: 'pointer' }}>{modelItem.label}</Link> });
     }
-  
+
     return items;
   };
   useEffect(() => {

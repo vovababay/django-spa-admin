@@ -10,6 +10,7 @@ import { LoginPage } from '@/pages/LoginPage/ui/LoginPage';
 import { hot } from 'react-hot-loader/root';
 import {ModelListPage} from "@/pages/ModelListPage";
 import {ModelDetailPage} from "@/pages/ModelDetailPage";
+import {HistoryPage} from "@/pages/HistoryPage";
 
 
 const App = () => {
@@ -64,6 +65,15 @@ const App = () => {
                 />
                 }
         />
+      <Route
+          path="/django_spa/admin/:appLabel/:modelName/:pk/history/"
+          element={
+          <HistoryPage
+              activeMenuItem={activeMenuItem}
+              setActiveMenuItem={setActiveMenuItem}
+          />
+        }
+      />
         <Route
             path="/django_spa/admin/:appLabel/"
             element={

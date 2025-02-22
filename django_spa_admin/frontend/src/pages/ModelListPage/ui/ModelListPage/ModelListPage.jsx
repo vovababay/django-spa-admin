@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { ModelTableLayout } from '@/shared/layouts/ModelTableLayout';
 import { DataTable } from "@/entities/Table/ui/DataTable";
 
+
 export const ModelListPage = ({ activeMenuItem, setActiveMenuItem }) => {
     const { appLabel, modelName } = useParams();
 

@@ -10,6 +10,7 @@ import {fetchData} from "@/entities/Table/api/fetchData";
 import {fetchAction} from "@/entities/Table/api/fetchAction";
 import {fetchFields} from "@/entities/Table/api/fetchFields";
 import Search from "antd/es/input/Search";
+import './DataTable.css'
 
 export const DataTable = ({ appLabel, modelName }) => {
     const [listDisplayLinks, setListDisplayLinks] = useState([]);
@@ -126,6 +127,7 @@ export const DataTable = ({ appLabel, modelName }) => {
                 columns={columns}
                 rowKey="id"
                 locale={{ emptyText: <Empty description="Нет данных" /> }}
+                rowClassName={(_, index) => (index % 2 !== 0 ? "red-row" : "")}
                 pagination={false}
             />
             <Pagination
