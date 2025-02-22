@@ -16,12 +16,12 @@ const { Header, Content, Footer, Sider } = Layout;
 export const ModelTableLayout = ({ children, obj }) => {
   const { token: { colorBgContainer, borderRadiusLG } } = theme.useToken();
   const { appLabel, modelName, pk } = useParams();
-    const [items2, setItems] = useState([]);
+    const [sidebarItems, setItems] = useState([]);
     const [activeMenuItem, setActiveMenuItem] = useState({"appLabel": null, "modelName": null});
     const navigate = useNavigate();
   const getBreadcrumb = () => {
     // Находим элемент по ключу appLabel
-    const appItem = items2.find(item => item.key === activeMenuItem.appLabel);
+    const appItem = sidebarItems.find(item => item.key === activeMenuItem.appLabel);
   
     // Проверяем, нашли ли appItem и, если да, находим его child по ключу modelName
     const modelItem = appItem?.children?.find(child => child.key === activeMenuItem.modelName);
@@ -90,7 +90,7 @@ export const ModelTableLayout = ({ children, obj }) => {
           />
           <Layout style={{ padding: '24px 0', background: colorBgContainer, borderRadius: borderRadiusLG, flexGrow: 1}}>
             <Sider style={{ background: colorBgContainer }} width={300}>
-                <SidebarMenu items2={items2} onenedAppLabel={activeMenuItem.appLabel} openedModelName={activeMenuItem.modelName}/>
+                <SidebarMenu items={sidebarItems} onenedAppLabel={activeMenuItem.appLabel} openedModelName={activeMenuItem.modelName}/>
             </Sider>
             <Content style={{ padding: '0 24px', flexGrow: 1 }}>
               {children}

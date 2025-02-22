@@ -11,4 +11,5 @@ export const API_ROUTES = {
     SIDE_BAR: '/side_bar/',
     LAST_ACTIONS: '/last_actions/',
     HISTORY: (appLabel, modelName, objectId) => `/${appLabel}/${modelName}/${objectId}/history/`,
+    LOGOUT: '/logout/'
 };

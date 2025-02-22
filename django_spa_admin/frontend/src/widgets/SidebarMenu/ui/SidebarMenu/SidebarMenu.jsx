@@ -4,25 +4,9 @@ import { Menu, Button } from 'antd';
 import {PlusOutlined} from "@ant-design/icons";
 import {ROUTES} from "@/shared/config";
 
-// const getLevelKeys = (headerMenu) => {
-//   const key = {};
-//   const func = (items2, level = 1) => {
-//     items2.forEach((item) => {
-//       if (item.key) {
-//         key[item.key] = level;
-//       }
-//       if (item.children) {
-//         func(item.children, level + 1);
-//       }
-//     });
-//   };
-//   func(headerMenu);
-//   return key;
-// };
 
-export const SidebarMenu = ({ items2, onenedAppLabel, openedModelName }) => {
+export const SidebarMenu = ({ items, onenedAppLabel, openedModelName }) => {
   const navigate = useNavigate();
-  // const levelKeys = getLevelKeys(items2);
 
   const [openKeys, setOpenKeys] = useState([onenedAppLabel]);
   const [selectedKeys, setSelectedKeys] = useState([openedModelName]);
@@ -34,7 +18,7 @@ export const SidebarMenu = ({ items2, onenedAppLabel, openedModelName }) => {
 
   const handleMenuClick = ({ item, key, keyPath }) => {
     // Переход на страницу при клике
-    const clickedItem = items2
+    const clickedItem = items
         .flatMap((menuItem) => menuItem.children || [])
         .find((child) => child.key === key);
 
@@ -87,7 +71,7 @@ export const SidebarMenu = ({ items2, onenedAppLabel, openedModelName }) => {
           onOpenChange={setOpenKeys}
           onClick={handleMenuClick}
       >
-        {renderMenu(items2)}
+        {renderMenu(items)}
       </Menu>
   );
 };
