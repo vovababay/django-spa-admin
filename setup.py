@@ -13,7 +13,8 @@ setup(
     name = 'django_spa_admin',
     version = '0.0.1',
     description = 'Django SPA Admin',
-    long_description=read_file('README.rst'),
+    long_description=read_file('README.md'),
+    long_description_content_type='text/markdown',
     author = 'Vladimir Babaev.',
     author_email = 'vladimir.babaev.12@gmail.com',
 
@@ -25,9 +26,7 @@ setup(
     include_package_data = True,
     install_requires=[
         'Django>=4.2.0',
-        'django-webpack-loader',
         'djangorestframework',
-        'django-cors-headers',
     ],
     classifiers = [
         "Framework :: Django",

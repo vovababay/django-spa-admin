@@ -13,6 +13,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.viewsets import ViewSet, GenericViewSet
 from rest_framework.decorators import action
+from rest_framework.renderers import JSONRenderer
 
 from django_spa_admin.serializers import DynamicModelListSerializer, DynamicModelRetrieveSerializer
 from django_spa_admin.paginator import AdminPageNumberPagination
@@ -25,6 +26,7 @@ from django_spa_admin.utils import to_bool, get_model_data, sort_fields_by_order
 class SideBarView(ViewSet):
     authentication_classes = [SessionAuthentication]
     permission_classes = [IsAuthenticated]
+    renderer_classes = [JSONRenderer]
 
     def list(self, request, *args, **kwargs):
         side_bar = {}
@@ -47,6 +49,7 @@ class SideBarView(ViewSet):
 class LastActionsViewSet(ViewSet):
     authentication_classes = [SessionAuthentication]
     permission_classes = [IsAuthenticated]
+    renderer_classes = [JSONRenderer]
 
     def list(self, request, *args, **kwargs):
         from django.contrib.admin.models import LogEntry
@@ -75,6 +78,7 @@ class LastActionsViewSet(ViewSet):
 class LoginView(APIView):
     permission_classes = [AllowAny]
     authentication_classes = [SessionAuthentication]
+    renderer_classes = [JSONRenderer]
 
     def post(self, request):
         username = request.data.get('username')
@@ -89,8 +93,8 @@ class LoginView(APIView):
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [SessionAuthentication]
+    renderer_classes = [JSONRenderer]
 
     def post(self, request):
         logout(request)
         return Response({"message": "Logout successful"}, status=status.HTTP_200_OK)
-

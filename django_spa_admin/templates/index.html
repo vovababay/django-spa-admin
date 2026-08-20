@@ -1,4 +1,4 @@
-{% load render_bundle from webpack_loader %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,6 +8,6 @@
 </head>
 <body>
     <div id="root"></div>
-    {% render_bundle 'main' %}
+    <script src="{% static 'django_spa_admin/js/bundle.js' %}"></script>
 </body>
 </html>

@@ -1,6 +1,4 @@
 django
 djangorestframework
-django-webpack-loader
-django-cors-headers
 setuptools
 twine

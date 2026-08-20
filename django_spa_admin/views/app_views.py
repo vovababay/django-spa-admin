@@ -13,6 +13,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.viewsets import ViewSet, GenericViewSet
 from rest_framework.decorators import action
+from rest_framework.renderers import JSONRenderer
 
 from django_spa_admin.serializers import DynamicModelListSerializer, DynamicModelRetrieveSerializer
 from django_spa_admin.paginator import AdminPageNumberPagination
@@ -26,6 +27,7 @@ from django_spa_admin.utils import to_bool, get_model_data, sort_fields_by_order
 class AppViewSet(ViewSet):
     authentication_classes = [SessionAuthentication]
     permission_classes = [IsAuthenticated]
+    renderer_classes = [JSONRenderer]
 
     @action(detail=False, methods=['get'], url_path='app_models')
     def app_models(self, request, *args, **kwargs):
